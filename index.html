@@ -1,13 +1,273 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-NP">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>Paragon Law Associates | Leading Law Firm in Nepal | Legal Services Kathmandu</title>
+    <meta name="title" content="Paragon Law Associates | Premier Law Firm in Nepal | Expert Legal Services" />
+    <meta name="description" content="Top-rated law firm in Kathmandu providing expert legal services across Nepal. Specializing in Corporate, Family, Criminal, Banking, Immigration & Cyber Law. Free consultation available. नेपालको अग्रणी कानूनी सेवा।" />
+    <meta name="keywords" content="law firm nepal, lawyers kathmandu, corporate law nepal, family lawyer kathmandu, criminal defense nepal, business law kathmandu, cyber law nepal, immigration lawyer kathmandu, foreign investment nepal, banking law kathmandu, property lawyer nepal, tax law kathmandu, supreme court lawyer nepal, legal services bagmati, कानूनी सेवा नेपाल, law firm lalitpur, lawyers bhaktapur, business registration nepal, contract lawyer kathmandu, merger acquisition nepal" />
+    <meta name="author" content="Paragon Law Associates" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Geo Location Tags -->
+    <meta name="geo.region" content="NP-BA" />
+    <meta name="geo.placename" content="Kathmandu" />
+    <meta name="geo.position" content="27.7172;85.3240" />
+    <meta name="ICBM" content="27.7172, 85.3240" />
+    <meta name="geo.region" content="NP" />
+    <meta name="place:location:latitude" content="27.7172"/>
+    <meta name="place:location:longitude" content="85.3240"/>
+    
+    <!-- Language Alternatives -->
+    <link rel="alternate" href="https://www.paragonlaw.com.np" hreflang="en-NP" />
+    <link rel="alternate" href="https://www.paragonlaw.com.np/ne" hreflang="ne" />
+    <link rel="canonical" href="https://www.paragonlaw.com.np" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0f172a" />
+
+    <!-- OpenGraph Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.paragonlaw.com.np" />
+    <meta property="og:title" content="Paragon Law Associates | Leading Law Firm in Nepal" />
+    <meta property="og:description" content="Premier law firm in Kathmandu providing comprehensive legal services across Nepal. Expertise in Corporate, Family, Criminal, Banking, Immigration & Cyber Law." />
+    <meta property="og:image" content="https://www.paragonlaw.com.np/images/social-share.jpg" />
+    <meta property="og:image:alt" content="Paragon Law Associates Office in Kathmandu" />
+    <meta property="og:locale" content="en_NP" />
+    <meta property="og:locale:alternate" content="ne_NP" />
+    <meta property="og:site_name" content="Paragon Law Associates" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Paragon Law Associates | Top Law Firm Nepal" />
+    <meta name="twitter:description" content="Expert legal services across Nepal. Corporate, Family, Criminal & More. Free consultation available." />
+    <meta name="twitter:image" content="https://www.paragonlaw.com.np/images/social-share.jpg" />
+
+    <!-- Fonts -->
+    <link 
+      rel="preload" 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link 
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- Main Schema Markup -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LawFirm",
+        "@id": "https://www.paragonlaw.com.np/#lawfirm",
+        "name": "Paragon Law Associates",
+        "alternateName": ["Paragon Law Nepal", "पारागन ल एसोसिएट्स"],
+        "image": "https://www.paragonlaw.com.np/images/logo.png",
+        "logo": "https://www.paragonlaw.com.np/images/logo.png",
+        "url": "https://www.paragonlaw.com.np",
+        "telephone": "+977-XXX-XXX-XXX",
+        "email": "contact@paragonlaw.com.np",
+        "description": "Leading law firm in Nepal providing comprehensive legal services with expertise in corporate, family, criminal law, and more.",
+        "slogan": "Excellence in Legal Representation",
+        "founder": {
+          "@type": "Person",
+          "name": "Founder Name"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Your Address",
+          "addressLocality": "Kathmandu",
+          "addressRegion": "Bagmati",
+          "postalCode": "44600",
+          "addressCountry": "NP"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "27.7172",
+          "longitude": "85.3240"
+        },
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Kathmandu"
+          },
+          {
+            "@type": "City",
+            "name": "Lalitpur"
+          },
+          {
+            "@type": "City",
+            "name": "Bhaktapur"
+          },
+          {
+            "@type": "State",
+            "name": "Bagmati Province"
+          },
+          {
+            "@type": "Country",
+            "name": "Nepal"
+          }
+        ],
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Legal Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Corporate Law",
+                "description": "Comprehensive corporate legal solutions including business formation, M&A, and compliance",
+                "serviceType": "Legal Service",
+                "provider": {
+                  "@id": "https://www.paragonlaw.com.np/#lawfirm"
+                }
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Family Law",
+                "description": "Expert family law services including divorce, custody, and estate planning"
+              }
+            }
+          ]
+        },
+        "amenityFeature": [
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Free Consultation",
+            "value": true
+          },
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Multilingual Staff",
+            "value": true
+          },
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Wheelchair Accessible",
+            "value": true
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/paragonlaw",
+          "https://www.linkedin.com/company/paragonlaw",
+          "https://twitter.com/paragonlaw"
+        ]
+      }
+    </script>
+
+    <!-- Practice Areas Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "Service",
+              "name": "Corporate Law",
+              "description": "Business formation, M&A, corporate governance",
+              "provider": {
+                "@id": "https://www.paragonlaw.com.np/#lawfirm"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "Service",
+              "name": "Foreign Investment",
+              "description": "FDI approvals, compliance, international trade"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What areas of law does Paragon Law Associates practice?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We provide comprehensive legal services including Corporate Law, Family Law, Criminal Defense, Banking & Finance, Immigration, and more across Nepal."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you offer services outside Kathmandu?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, while our main office is in Kathmandu, we serve clients throughout Nepal and handle cases in all courts across the country."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.paragonlaw.com.np"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Practice Areas",
+            "item": "https://www.paragonlaw.com.np/practice-areas"
+          }
+        ]
+      }
+    </script>
+
+    <!-- Performance & Security -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://localhost:8000; connect-src 'self' http://localhost:8000 ws://localhost:5173; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self' 'unsafe-inline';" />
+    
+    <!-- Your existing script -->
+    <script type="module" src="/src/main.jsx"></script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
