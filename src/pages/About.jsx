@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Users, Award, BookOpen, Calendar } from 'lucide-react';
 import Footer from './Footer.jsx';
 
 const About = () => {
@@ -143,6 +143,156 @@ const About = () => {
           </div>
         </div>
       </div>
+
+      {/* Our Team's Culture Section */}
+      <section className="bg-[#1E293B] py-24 sm:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center text-[#FBBF24]">
+            Our Team's Culture
+          </h2>
+          <p className="text-gray-300 text-center mt-4 max-w-2xl mx-auto">
+            At Paragon Law Associates, we foster a collaborative, inclusive, and innovative work environment.
+          </p>
+          <div className="mt-10 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-8">
+            {[
+              {
+                title: "Collaboration",
+                description: "We believe in teamwork and open communication to achieve the best results."
+              },
+              {
+                title: "Innovation",
+                description: "Our team embraces cutting-edge tools and methodologies to stay ahead."
+              },
+              {
+                title: "Diversity",
+                description: "We celebrate diverse perspectives and backgrounds to enrich our practice."
+              }
+            ].map((culture, index) => (
+              <div key={index} className="bg-[#0F172A] p-6 rounded-lg shadow-lg">
+                <Users className="w-8 h-8 text-[#FBBF24] mb-4" />
+                <h3 className="text-lg font-semibold text-[#FBBF24]">{culture.title}</h3>
+                <p className="text-gray-300 mt-2">{culture.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Community Engagement Section */}
+      <section className="bg-[#0F172A] py-24 sm:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center text-[#FBBF24]">
+            Community Engagement
+          </h2>
+          <p className="text-gray-300 text-center mt-4 max-w-2xl mx-auto">
+            We are committed to giving back to the community and making a positive impact.
+          </p>
+          <div className="mt-10 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-8">
+            {[
+              {
+                title: "Pro Bono Work",
+                description: "Providing free legal aid to underprivileged communities."
+              },
+              {
+                title: "Legal Awareness Programs",
+                description: "Educating the public about their legal rights and responsibilities."
+              },
+              {
+                title: "Charitable Partnerships",
+                description: "Supporting local charities and NGOs to drive social change."
+              }
+            ].map((engagement, index) => (
+              <div key={index} className="bg-[#1E293B] p-6 rounded-lg shadow-lg">
+                <Award className="w-8 h-8 text-[#FBBF24] mb-4" />
+                <h3 className="text-lg font-semibold text-[#FBBF24]">{engagement.title}</h3>
+                <p className="text-gray-300 mt-2">{engagement.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Client Testimonials Section */}
+      <section className="bg-[#1E293B] py-24 sm:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center text-[#FBBF24]">
+            What Clients Say About Us
+          </h2>
+          <div className="mt-10 grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-8">
+            {[
+              {
+                quote: "Their dedication and professionalism exceeded my expectations.",
+                name: "John Doe",
+                role: "CEO, TechCorp"
+              },
+              {
+                quote: "I couldn’t have resolved my case without their expert guidance.",
+                name: "Jane Smith",
+                role: "Client"
+              }
+            ].map((testimonial, index) => (
+              <div key={index} className="bg-[#0F172A] p-6 rounded-lg shadow-lg">
+                <p className="text-gray-300 italic">"{testimonial.quote}"</p>
+                <p className="mt-4 font-semibold text-[#FBBF24]">{testimonial.name}</p>
+                <p className="text-sm text-gray-400">{testimonial.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline of Milestones Section */}
+      <section className="bg-[#0F172A] py-24 sm:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center text-[#FBBF24]">
+            Our Journey: Key Milestones
+          </h2>
+          <p className="text-gray-300 text-center mt-4 max-w-2xl mx-auto">
+            A timeline showcasing our growth and achievements over the years.
+          </p>
+          <div className="mt-10 relative">
+            {/* Timeline Line */}
+            <div className="absolute left-1/2 top-0 h-full w-0.5 bg-[#FBBF24] transform -translate-x-1/2"></div>
+            {/* Timeline Items */}
+            <div className="space-y-12">
+              {[
+                {
+                  year: "2003",
+                  title: "Established",
+                  description: "Founded as a boutique law firm in Kathmandu, Nepal."
+                },
+                {
+                  year: "2008",
+                  title: "Expansion",
+                  description: "Expanded services to include corporate and international law."
+                },
+                {
+                  year: "2015",
+                  title: "Recognition",
+                  description: "Received the National Excellence in Legal Services Award."
+                },
+                {
+                  year: "2020",
+                  title: "Digital Transformation",
+                  description: "Adopted AI-driven legal research tools to enhance efficiency."
+                }
+              ].map((milestone, index) => (
+                <div key={index} className="relative pl-10 sm:pl-20">
+                  {/* Timeline Dot */}
+                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#FBBF24] rounded-full z-10 mt-2"></div>
+                  {/* Content */}
+                  <div className="bg-[#1E293B] p-6 rounded-lg shadow-lg">
+                    <Calendar className="w-8 h-8 text-[#FBBF24] mb-4" />
+                    <h3 className="text-lg font-semibold text-[#FBBF24]">{milestone.year}</h3>
+                    <h4 className="text-md font-medium text-[#FBBF24] mb-2">{milestone.title}</h4>
+                    <p className="text-gray-300">{milestone.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <Footer />

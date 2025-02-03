@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star, ChevronRight, Phone, Mail } from 'lucide-react';
+import { Star, ChevronRight, Phone, Mail, Award, BookOpen, Users, HelpCircle } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/Card.jsx';
 import Footer from './Footer';
 
@@ -7,26 +7,23 @@ import Footer from './Footer';
 const SimpleCarousel = ({ children }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = React.Children.count(children);
-
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
   };
-
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
-
   return (
     <div className="relative">
       <button
         onClick={prevSlide}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#FBBF24] text-[#0F172A] p-2 rounded-full z-10"
+        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#B8860B] text-[#0F172A] p-2 rounded-full z-10"
       >
         <ChevronRight className="w-5 h-5 rotate-180" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#FBBF24] text-[#0F172A] p-2 rounded-full z-10"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#B8860B] text-[#0F172A] p-2 rounded-full z-10"
       >
         <ChevronRight className="w-5 h-5" />
       </button>
@@ -40,13 +37,12 @@ const SimpleCarousel = ({ children }) => {
 // Photo Gallery Component
 const PhotoGallery = ({ photos }) => {
   const [selectedPhoto, setSelectedPhoto] = useState(0);
-
   return (
     <div className="flex flex-col items-center">
       <img
         src={photos[selectedPhoto]}
         alt={`Gallery ${selectedPhoto}`}
-        className="w-full h-64 object-cover rounded-lg mb-4"
+        className="w-full h-64 object-cover rounded-lg mb-4 transition-transform duration-300 hover:scale-105" // Smooth zoom effect on hover
       />
       <div className="flex space-x-2">
         {photos.map((_, index) => (
@@ -54,7 +50,7 @@ const PhotoGallery = ({ photos }) => {
             key={index}
             onClick={() => setSelectedPhoto(index)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              index === selectedPhoto ? 'bg-[#FBBF24]' : 'bg-gray-500'
+              index === selectedPhoto ? 'bg-[#B8860B]' : 'bg-gray-500'
             }`}
           ></button>
         ))}
@@ -121,9 +117,13 @@ const Attorneys = () => {
   return (
     <div className="flex flex-col min-h-screen bg-[#0F172A] text-gray-300"> {/* Dark Navy Blue background */}
       {/* Header Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h2 className="text-4xl font-serif text-[#B8860B] mb-4">Our Expert Attorneys</h2> {/* Premium Gold */}
-        <p className="text-gray-300 max-w-2xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-16">
+        <div className="flex items-center space-x-2 mb-6">
+          <div className="h-1 w-12 bg-[#FBBF24]"></div>
+          <span className="text-[#FBBF24] font-semibold tracking-wider uppercase">Meet Our Team</span>
+        </div>
+        <h1 className="text-4xl font-serif text-[#FBBF24]">Our Expert Attorneys</h1>
+        <p className="text-gray-400 max-w-2xl mt-4">
           Meet our team of experienced legal professionals dedicated to your success
         </p>
       </div>
@@ -134,7 +134,7 @@ const Attorneys = () => {
           {attorneys.map((attorney, index) => (
             <Card
               key={index}
-              className="bg-[#1E293B] border-2 border-[#B8860B] rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300" // Hover effect
+              className="bg-[#1E293B] border-2 border-transparent hover:border-[#B8860B] rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300" // Hover effect
             >
               <CardContent className="p-6">
                 {/* Photo Gallery */}
@@ -195,6 +195,97 @@ const Attorneys = () => {
           ))}
         </div>
       </div>
+
+      {/* Attorney Achievements Section */}
+      <section className="bg-[#1E293B] py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center text-[#B8860B]">
+            Attorney Achievements
+          </h2>
+          <div className="mt-10 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-8">
+            {[
+              { title: "Top Legal Awards", description: "Recognized for excellence in corporate law." },
+              { title: "Published Articles", description: "Contributions to leading legal journals." },
+              { title: "High-Profile Cases", description: "Successfully represented clients in landmark cases." }
+            ].map((achievement, index) => (
+              <div key={index} className="bg-[#0F172A] p-6 rounded-lg shadow-lg">
+                <Award className="w-8 h-8 text-[#B8860B] mb-4" />
+                <h3 className="text-lg font-semibold text-[#B8860B]">{achievement.title}</h3>
+                <p className="text-gray-300 mt-2">{achievement.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Legal Insights Section */}
+      <section className="bg-[#0F172A] py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center text-[#B8860B]">
+            Legal Insights
+          </h2>
+          <div className="mt-10 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-8">
+            {[
+              { title: "The Future of Corporate Law", excerpt: "Explore trends shaping modern corporate practices." },
+              { title: "Understanding Family Law Reforms", excerpt: "Key changes impacting family law in Nepal." },
+              { title: "AI in Legal Practice", excerpt: "How artificial intelligence is transforming the legal field." }
+            ].map((insight, index) => (
+              <div key={index} className="bg-[#1E293B] p-6 rounded-lg shadow-lg">
+                <BookOpen className="w-8 h-8 text-[#B8860B] mb-4" />
+                <h3 className="text-lg font-semibold text-[#B8860B]">{insight.title}</h3>
+                <p className="text-gray-300 mt-2">{insight.excerpt}</p>
+                <a href="#" className="text-[#B8860B] hover:text-[#D4AF37] transition mt-4 inline-block">
+                  Read More →
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Community Involvement Section */}
+      <section className="bg-[#1E293B] py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center text-[#B8860B]">
+            Community Involvement
+          </h2>
+          <div className="mt-10 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-8">
+            {[
+              { title: "Pro Bono Work", description: "Providing free legal aid to underprivileged communities." },
+              { title: "Legal Workshops", description: "Conducting workshops to educate the public on legal rights." },
+              { title: "Charitable Contributions", description: "Supporting local charities and NGOs." }
+            ].map((involvement, index) => (
+              <div key={index} className="bg-[#0F172A] p-6 rounded-lg shadow-lg">
+                <Users className="w-8 h-8 text-[#B8860B] mb-4" />
+                <h3 className="text-lg font-semibold text-[#B8860B]">{involvement.title}</h3>
+                <p className="text-gray-300 mt-2">{involvement.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQs About Our Attorneys */}
+      <section className="bg-[#0F172A] py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center text-[#B8860B]">
+            FAQs About Our Attorneys
+          </h2>
+          <div className="mt-10 space-y-6">
+            {[
+              { question: "What qualifications do your attorneys have?", answer: "Our attorneys hold advanced degrees and are admitted to prestigious bar associations." },
+              { question: "Do you offer consultations?", answer: "Yes, we offer personalized consultations to discuss your legal needs." },
+              { question: "What areas of law do you specialize in?", answer: "We specialize in corporate law, family law, criminal defense, and more." }
+            ].map((faq, index) => (
+              <div key={index} className="bg-[#1E293B] p-6 rounded-lg shadow-lg">
+                <HelpCircle className="w-8 h-8 text-[#B8860B] mb-4" />
+                <h3 className="text-lg font-semibold text-[#B8860B]">{faq.question}</h3>
+                <p className="text-gray-300 mt-2">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <Footer />

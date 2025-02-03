@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { 
-  Gavel, Users, Landmark, Shield, FileText, BookOpen, ChevronRight 
+import {
+  Gavel, Users, Landmark, Shield, FileText, BookOpen, ChevronRight, Briefcase, HelpCircle, Award
 } from 'lucide-react';
 import Footer from './Footer';
 
@@ -100,39 +100,162 @@ const PracticeAreas = () => {
 
       {/* Main Content */}
       <div className="flex flex-col min-h-screen bg-[#0F172A] text-gray-300"> {/* Dark Navy Blue background */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-serif text-[#FBBF24] mb-4">Our Practice Areas</h2> {/* Gold */}
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Comprehensive legal expertise across multiple disciplines to serve your needs
-            </p>
-          </div>
-          <div className="mt-6 grid grid-cols-1 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-            {areas.map((area, index) => (
-              <div key={index} className="bg-[#1E293B] border-2 border-gold rounded-lg shadow-md overflow-hidden transform hover:-translate-y-1 transition-all duration-300"> {/* Slightly lighter navy */}
-                <div className="bg-[#0F172A] w-16 h-16 rounded-lg flex items-center justify-center mb-6 mx-auto mt-6 group-hover:bg-[#FBBF24] transition"> {/* Dark navy, Gold on hover */}
-                  {area.icon}
-                </div>
-                <div className="px-6 pb-6">
-                  <h3 className="text-xl font-semibold mb-4 text-[#FBBF24] text-center">{area.title}</h3> {/* Gold */}
-                  <p className="text-gray-300 mb-6 text-center">{area.description}</p>
-                  <ul className="space-y-2">
-                    {area.services.map((service, idx) => (
-                      <li key={idx} className="flex items-center text-sm text-gray-300">
-                        <ChevronRight className="w-4 h-4 text-[#FBBF24] mr-2" /> {/* Gold */}
-                        {service}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+        {/* Hero Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-16">
+          <div className="-mx-4 sm:-mx-6 lg:-mx-8"> {/* Negative margin container */}
+            <div className="px-4 sm:px-6 lg:px-8"> {/* Padding container */}
+              <div className="flex items-center space-x-2 mb-6">
+                <div className="h-1 w-12 bg-[#FBBF24]"></div>
+                <span className="text-[#FBBF24] font-semibold tracking-wider uppercase">Areas of Expertise</span>
               </div>
-            ))}
+            </div>
           </div>
+          <h1 className="text-4xl font-serif text-[#FBBF24] text-center">Our Practice Areas</h1>
+          <p className="text-gray-400 text-center max-w-2xl mx-auto mt-4">
+            Comprehensive legal expertise across multiple disciplines to serve your needs
+          </p>
         </div>
-      </div>
 
-      {/* Footer */}
-      <Footer />
+        <div className="mt-6 grid grid-cols-1 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
+          {areas.map((area, index) => (
+            <div key={index} className="bg-[#1E293B] border-2 border-gold rounded-lg shadow-md overflow-hidden transform hover:-translate-y-1 transition-all duration-300"> {/* Slightly lighter navy */}
+              <div className="bg-[#0F172A] w-16 h-16 rounded-lg flex items-center justify-center mb-6 mx-auto mt-6 group-hover:bg-[#FBBF24] transition"> {/* Dark navy, Gold on hover */}
+                {area.icon}
+              </div>
+              <div className="px-6 pb-6">
+                <h3 className="text-xl font-semibold mb-4 text-[#FBBF24] text-center">{area.title}</h3> {/* Gold */}
+                <p className="text-gray-300 mb-6 text-center">{area.description}</p>
+                <ul className="space-y-2">
+                  {area.services.map((service, idx) => (
+                    <li key={idx} className="flex items-center text-sm text-gray-300">
+                      <ChevronRight className="w-4 h-4 text-[#FBBF24] mr-2" /> {/* Gold */}
+                      {service}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Case Studies Section */}
+        <section className="bg-[#1E293B] py-24 sm:py-32">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-center text-[#FBBF24]">
+              Success Stories
+            </h2>
+            <p className="text-gray-300 text-center mt-4 max-w-2xl mx-auto">
+              Explore how we've helped clients achieve their goals across various practice areas.
+            </p>
+            <div className="mt-10 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-8">
+              {[
+                {
+                  title: "Corporate Merger Success",
+                  description: "Facilitated a seamless merger between two leading tech companies, ensuring regulatory compliance and stakeholder satisfaction."
+                },
+                {
+                  title: "High-Profile Criminal Defense",
+                  description: "Secured an acquittal for a client facing federal charges, leveraging strategic legal arguments and evidence analysis."
+                },
+                {
+                  title: "Complex Real Estate Deal",
+                  description: "Navigated zoning laws and property disputes to close a multimillion-dollar real estate transaction."
+                }
+              ].map((caseStudy, index) => (
+                <div key={index} className="bg-[#0F172A] p-6 rounded-lg shadow-lg">
+                  <Briefcase className="w-8 h-8 text-[#FBBF24] mb-4" />
+                  <h3 className="text-lg font-semibold text-[#FBBF24]">{caseStudy.title}</h3>
+                  <p className="text-gray-300 mt-2">{caseStudy.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Legal Resources Section */}
+        <section className="bg-[#0F172A] py-24 sm:py-32">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-center text-[#FBBF24]">
+              Legal Resources
+            </h2>
+            <p className="text-gray-300 text-center mt-4 max-w-2xl mx-auto">
+              Access valuable insights and guides to help you navigate legal challenges.
+            </p>
+            <div className="mt-10 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-8">
+              {[
+                {
+                  title: "Understanding Corporate Compliance",
+                  excerpt: "Learn about the latest regulations and best practices for corporate governance."
+                },
+                {
+                  title: "Family Law FAQs",
+                  excerpt: "Answers to common questions about divorce, custody, and estate planning."
+                },
+                {
+                  title: "Intellectual Property Protection",
+                  excerpt: "A guide to safeguarding your patents, trademarks, and copyrights."
+                }
+              ].map((resource, index) => (
+                <div key={index} className="bg-[#1E293B] p-6 rounded-lg shadow-lg">
+                  <BookOpen className="w-8 h-8 text-[#FBBF24] mb-4" />
+                  <h3 className="text-lg font-semibold text-[#FBBF24]">{resource.title}</h3>
+                  <p className="text-gray-300 mt-2">{resource.excerpt}</p>
+                  <a href="#" className="text-[#FBBF24] hover:text-[#D4AF37] transition mt-4 inline-block">
+                    Read More →
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Practice Area-Specific Testimonials */}
+        <section className="bg-[#1E293B] py-24 sm:py-32">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-center text-[#FBBF24]">
+              What Clients Say About Our Practice Areas
+            </h2>
+            <div className="mt-10 grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-8">
+              {[
+                { quote: "Their corporate law team made our merger process smooth and stress-free.", name: "John Doe", role: "CEO, TechCorp" },
+                { quote: "The family law attorneys were compassionate and truly understood my situation.", name: "Jane Smith", role: "Client" },
+                { quote: "I couldn't have won my case without their criminal defense expertise.", name: "Mike Johnson", role: "Defendant" }
+              ].map((testimonial, index) => (
+                <div key={index} className="bg-[#0F172A] p-6 rounded-lg shadow-lg">
+                  <p className="text-gray-300 italic">"{testimonial.quote}"</p>
+                  <p className="mt-4 font-semibold text-[#FBBF24]">{testimonial.name}</p>
+                  <p className="text-sm text-gray-400">{testimonial.role}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQs About Practice Areas */}
+        <section className="bg-[#0F172A] py-24 sm:py-32">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-center text-[#FBBF24]">
+              FAQs About Our Practice Areas
+            </h2>
+            <div className="mt-10 space-y-6">
+              {[
+                { question: "What qualifications do your attorneys have?", answer: "Our attorneys hold advanced degrees and are admitted to prestigious bar associations." },
+                { question: "Do you offer consultations?", answer: "Yes, we offer personalized consultations to discuss your legal needs." },
+                { question: "What areas of law do you specialize in?", answer: "We specialize in corporate law, family law, criminal defense, and more." }
+              ].map((faq, index) => (
+                <div key={index} className="bg-[#1E293B] p-6 rounded-lg shadow-lg">
+                  <HelpCircle className="w-8 h-8 text-[#FBBF24] mb-4" />
+                  <h3 className="text-lg font-semibold text-[#FBBF24]">{faq.question}</h3>
+                  <p className="text-gray-300 mt-2">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <Footer />
+      </div>
     </>
   );
 };

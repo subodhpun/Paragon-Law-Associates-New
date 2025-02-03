@@ -3,16 +3,12 @@ import { ChevronRight, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Footer from './Footer';
+import Slideonscroll from '../components/ui/Slideonscroll'
 
-const Home = () => {
+// Hero Section Component with Image Crop and Text Overlay
+const HeroSection = () => {
   return (
-    <div className="bg-[#0F172A] text-white"> {/* Dark Navy Blue Background */}
-      <Helmet>
-        <title>Home | Paragon Law Associates</title>
-      </Helmet>
-
-      {/* Hero Section */}
-      <section className="relative h-[700px] bg-[#0F172A] overflow-hidden">
+    <section className="relative h-[700px] bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=2000"
@@ -20,7 +16,7 @@ const Home = () => {
             className="w-full h-full object-cover opacity-30"
           />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center mt-16">
           <div className="space-y-8">
             <div className="flex items-center space-x-2">
               <div className="h-1 w-12 bg-[#FBBF24]"></div> {/* Gold Accent */}
@@ -53,106 +49,184 @@ const Home = () => {
         </div>
       </section>
 
+  );
+};
+
+// Main Home Component
+const Home = () => {
+  return (
+    <>
+      {/* SEO Metadata */}
+      <Helmet>
+        <title>Home | Paragon Law Associates</title>
+        <meta
+          name="description"
+          content="Paragon Law Associates - Your trusted legal partner for all legal needs."
+        />
+      </Helmet>
+
+      {/* Hero Section */}
+      <HeroSection />
+
       {/* Stats Section */}
-      <section className="bg-[#1E293B] py-16"> {/* Slightly Lighter Navy */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { number: "20+", label: "Years Experience" },
-              { number: "1000+", label: "Cases Won" },
-              { number: "50+", label: "Expert Attorneys" },
-              { number: "98%", label: "Client Satisfaction" }
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl font-bold text-[#FBBF24] mb-2">{stat.number}</div>
-                <div className="text-gray-300 text-sm uppercase tracking-wider">{stat.label}</div>
-              </div>
-            ))}
+      <Slideonscroll direction="up" duration={1}>
+        <div className="bg-[#1E293B] py-24">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {[
+                { number: '20+', label: 'Years Experience' },
+                { number: '1000+', label: 'Cases Won' },
+                { number: '50+', label: 'Expert Attorneys' },
+                { number: '98%', label: 'Client Satisfaction' },
+              ].map((stat, index) => (
+                <div key={index} className="text-center">
+                  <h2 className="text-3xl font-bold text-[#FBBF24]">{stat.number}</h2>
+                  <p className="mt-2 text-gray-300">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+      </Slideonscroll>
 
       {/* Practice Areas Section */}
-      <section className="bg-[#0F172A] py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base font-semibold leading-7 text-[#FBBF24]">
+      <Slideonscroll direction="up" duration={1}>
+        <div className="bg-[#0F172A] py-24">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-center text-[#FBBF24]">
               Comprehensive Legal Solutions
             </h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-[#FBBF24] sm:text-4xl">
-              Our Practice Areas
+            <p className="mt-4 text-lg text-center text-gray-300">
+              We offer a wide range of legal services to meet your needs, whether you're an individual,
+              business, or organization.
             </p>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
-              We offer a wide range of legal services to meet your needs, whether you're an individual, business, or organization.
-            </p>
-          </div>
-          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
                   name: 'Corporate Law',
-                  description: 'Expert guidance for businesses of all sizes, from startups to established corporations.',
-                  link: '/practice-areas/corporate-law'
+                  description:
+                    'Expert guidance for businesses of all sizes, from startups to established corporations.',
+                  link: '/practice-areas/corporate-law',
                 },
                 {
                   name: 'Family Law',
-                  description: 'Compassionate legal support for family matters, including divorce, custody, and adoption.',
-                  link: '/practice-areas/family-law'
+                  description:
+                    'Compassionate legal support for family matters, including divorce, custody, and adoption.',
+                  link: '/practice-areas/family-law',
                 },
                 {
                   name: 'Cyber Law',
-                  description: 'Protection and guidance in the digital age, handling cybercrime and online legal issues.',
-                  link: '/practice-areas/cyber-law'
-                }
-              ].map((practice) => (
-                <div key={practice.name} className="flex flex-col">
-                  <dt className="text-lg font-semibold leading-7 text-[#FBBF24]">
-                    {practice.name}
-                  </dt>
-                  <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-300">
-                    <p className="flex-auto">{practice.description}</p>
-                    <p className="mt-6">
-                      <Link
-                        to={practice.link}
-                        className="text-sm font-semibold leading-6 text-[#FBBF24] hover:text-[#D4AF37] transition duration-300"
-                      >
-                        Learn more <span aria-hidden="true">→</span>
-                      </Link>
-                    </p>
-                  </dd>
+                  description:
+                    'Protection and guidance in the digital age, handling cybercrime and online legal issues.',
+                  link: '/practice-areas/cyber-law',
+                },
+              ].map((practice, index) => (
+                <div key={index} className="text-center">
+                  <h3 className="text-xl font-semibold text-[#FBBF24]">{practice.name}</h3>
+                  <p className="mt-2 text-gray-300">{practice.description}</p>
+                  <Link
+                    to={practice.link}
+                    className="mt-4 inline-block text-[#FBBF24] hover:text-[#D4AF37] transition duration-300"
+                  >
+                    Learn more →
+                  </Link>
                 </div>
               ))}
-            </dl>
+            </div>
           </div>
         </div>
-      </section>
+      </Slideonscroll>
 
       {/* Testimonials Section */}
-      <section className="bg-[#1E293B] py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-center text-[#FBBF24]">
-            What Our Clients Say
-          </h2>
-          <div className="mt-10 grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-8">
-            {[
-              { quote: "Exceptional service and professionalism!", name: "John Doe", position: "CEO, Company A" },
-              { quote: "They handled my case with great care and expertise.", name: "Jane Smith", position: "Client" },
-              { quote: "Highly recommend for any legal needs!", name: "Mike Johnson", position: "Entrepreneur" },
-              { quote: "A team of dedicated professionals who truly care.", name: "Emily Davis", position: "Non-Profit Director" }
-            ].map((testimonial, index) => (
-              <div key={index} className="bg-[#0F172A] p-6 rounded-lg shadow-lg">
-                <p className="text-gray-300 italic">"{testimonial.quote}"</p>
-                <p className="mt-4 font-semibold text-[#FBBF24]">{testimonial.name}</p>
-                <p className="text-sm text-gray-400">{testimonial.position}</p>
-              </div>
-            ))}
+      <Slideonscroll direction="up" duration={1}>
+        <div className="bg-[#1E293B] py-24">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-center text-[#FBBF24]">What Our Clients Say</h2>
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                {
+                  quote: 'Exceptional service and professionalism!',
+                  name: 'John Doe',
+                  position: 'CEO, Company A',
+                },
+                {
+                  quote: 'They handled my case with great care and expertise.',
+                  name: 'Jane Smith',
+                  position: 'Client',
+                },
+                {
+                  quote: 'Highly recommend for any legal needs!',
+                  name: 'Mike Johnson',
+                  position: 'Entrepreneur',
+                },
+                {
+                  quote: 'A team of dedicated professionals who truly care.',
+                  name: 'Emily Davis',
+                  position: 'Non-Profit Director',
+                },
+              ].map((testimonial, index) => (
+                <div key={index} className="text-center">
+                  <p className="text-gray-300">"{testimonial.quote}"</p>
+                  <h3 className="mt-4 text-lg font-semibold text-[#FBBF24]">{testimonial.name}</h3>
+                  <p className="text-gray-400">{testimonial.position}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+      </Slideonscroll>
+
+      {/* Why Choose Us Section */}
+      <Slideonscroll direction="up" duration={1}>
+        <div className="bg-[#0F172A] py-24">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-center text-[#FBBF24]">Why Choose Us?</h2>
+            <p className="mt-4 text-lg text-center text-gray-300">
+              Your Trusted Legal Partner. At Paragon Law Associates, we prioritize your success with tailored solutions and unwavering dedication.
+            </p>
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  title: 'Experienced Team',
+                  description: 'Our attorneys bring decades of combined experience across diverse legal fields.',
+                },
+                {
+                  title: 'Personalized Approach',
+                  description: 'We tailor our strategies to meet your unique needs and goals.',
+                },
+                {
+                  title: 'Proven Track Record',
+                  description: 'With over 1000+ successful cases, we deliver results you can trust.',
+                },
+              ].map((reason, index) => (
+                <div key={index} className="text-center">
+                  <h3 className="text-xl font-semibold text-[#FBBF24]">{reason.title}</h3>
+                  <p className="mt-2 text-gray-300">{reason.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Slideonscroll>
+
+      {/* Call to Action Section */}
+      <Slideonscroll direction="up" duration={1}>
+        <div className="bg-[#1E293B] py-24">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold text-[#FBBF24]">Ready to Get Started?</h2>
+            <p className="mt-4 text-lg text-gray-300">
+              Contact us today to schedule a consultation with our expert legal team.
+            </p>
+            <button className="mt-6 bg-[#FBBF24] text-[#0F172A] px-6 py-3 rounded-lg hover:bg-[#D4AF37] transition duration-300">
+              Schedule Consultation
+            </button>
+          </div>
+        </div>
+      </Slideonscroll>
 
       {/* Footer */}
       <Footer />
-    </div>
+    </>
   );
 };
 
