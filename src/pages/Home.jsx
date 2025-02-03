@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronRight, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Footer from './Footer';
 import Slideonscroll from '../components/ui/Slideonscroll'
+import CustomLoader from '../components/ui/CustomLoader';
 
 // Hero Section Component with Image Crop and Text Overlay
 const HeroSection = () => {
