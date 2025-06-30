@@ -12,7 +12,6 @@ export default defineConfig({
   build: {
     // Only remove or modify this if you're building a custom entry point
     rollupOptions: {
-      input: path.resolve(__dirname, 'src/main.jsx'),
     },
   },
   optimizeDeps: {
