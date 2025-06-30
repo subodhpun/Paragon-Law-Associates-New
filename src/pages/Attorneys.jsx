@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Star, ChevronRight, Phone, Mail, Award, BookOpen, Users, HelpCircle } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/Card.jsx';
 import Footer from './Footer';
+import Gaurab from '../images/gaurab.jpg'
+import SlideOnScroll from '@/components/ui/Slideonscroll';
+
 
 // Custom Carousel Component
 const SimpleCarousel = ({ children }) => {
@@ -65,7 +68,7 @@ const Attorneys = () => {
       name: "Sarah Johnson",
       role: "Managing Partner",
       photos: [
-        "/api/placeholder/500/600",
+        Gaurab,
         "/api/placeholder/500/600",
         "/api/placeholder/500/600"
       ],

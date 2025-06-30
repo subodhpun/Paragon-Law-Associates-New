@@ -5,6 +5,9 @@ import { Helmet } from 'react-helmet';
 import Footer from './Footer';
 import Slideonscroll from '../components/ui/Slideonscroll'
 import CustomLoader from '../components/ui/CustomLoader';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 
 // Hero Section Component with Image Crop and Text Overlay
 const HeroSection = () => {
@@ -55,6 +58,28 @@ const HeroSection = () => {
 
 // Main Home Component
 const Home = () => {
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  // Fetch testimonials from the Django backend API
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch('/api/testimonials/');
+        if (!response.ok) {
+          throw new Error('Failed to fetch testimonials');
+        }
+        const data = await response.json();
+        setTestimonials(data);
+      } catch (error) {
+        console.error('Error fetching testimonials:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTestimonials();
+  }, []);
+console.log(testimonials)
   return (
     <>
       {/* SEO Metadata */}
@@ -67,8 +92,9 @@ const Home = () => {
       </Helmet>
 
       {/* Hero Section */}
+      <Slideonscroll direction="up" duration={1}>
       <HeroSection />
-
+      </Slideonscroll>
       {/* Stats Section */}
       <Slideonscroll direction="up" duration={1}>
         <div className="bg-[#1E293B] py-24">
@@ -143,35 +169,58 @@ const Home = () => {
         <div className="bg-[#1E293B] py-24">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-center text-[#FBBF24]">What Our Clients Say</h2>
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                {
-                  quote: 'Exceptional service and professionalism!',
-                  name: 'John Doe',
-                  position: 'CEO, Company A',
-                },
-                {
-                  quote: 'They handled my case with great care and expertise.',
-                  name: 'Jane Smith',
-                  position: 'Client',
-                },
-                {
-                  quote: 'Highly recommend for any legal needs!',
-                  name: 'Mike Johnson',
-                  position: 'Entrepreneur',
-                },
-                {
-                  quote: 'A team of dedicated professionals who truly care.',
-                  name: 'Emily Davis',
-                  position: 'Non-Profit Director',
-                },
-              ].map((testimonial, index) => (
-                <div key={index} className="text-center">
-                  <p className="text-gray-300">"{testimonial.quote}"</p>
-                  <h3 className="mt-4 text-lg font-semibold text-[#FBBF24]">{testimonial.name}</h3>
-                  <p className="text-gray-400">{testimonial.position}</p>
-                </div>
-              ))}
+            <div className="mt-16">
+              {loading ? (
+                <CustomLoader />
+              ) : testimonials.length > 0 ? (
+                <Slider
+                  dots={true}
+                  infinite={true}
+                  speed={500}
+                  slidesToShow={3}
+                  slidesToScroll={1}
+                  responsive={[
+                    {
+                      breakpoint: 1024,
+                      settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                      },
+                    },
+                  ]}
+                  autoplay={true}
+                  autoplaySpeed={3000}
+                  className="flex space-x-4"
+                >
+                  {testimonials.map((testimonial, index) => (
+                    <div key={index} className="mb-6 px-4">
+                      {testimonial.image_data && (
+                        <div className="relative w-full pb-[100%] mb-4 rounded shadow-lg overflow-hidden group">
+                        <img
+                          src={`data:image/png;base64,${testimonial.image_data}`}
+                          alt={`${testimonial.client_name}'s testimonial`}
+                          className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-700 ease-in-out transform group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-[#0F172A] bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center">
+                          <p className="text-white text-lg font-semibold">Paragon Law</p>
+                        </div>
+                      </div>
+                      )}
+                      <blockquote className="flex flex-row justify-center italic text-lg text-white text-center">
+                        "{testimonial.content}"
+                      </blockquote>
+                      <p className="flex flex-row justify-center mt-2 text-white">
+                        <strong className="text-[#FBBF24]">{testimonial.client_name}</strong>
+                      </p>
+                      <p className="flex flex-row justify-center mt-2 text-white">
+                      <p>{testimonial.position}, {testimonial.company}</p>
+                      </p>
+                    </div>
+                  ))}
+                </Slider>
+              ) : (
+                <p className="text-center text-white">No testimonials available.</p>
+              )}
             </div>
           </div>
         </div>
