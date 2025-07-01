@@ -1,35 +1,40 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
-  build: {
-    // Only remove or modify this if you're building a custom entry point
-    rollupOptions: {
-    },
-  },
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://strapi-backend-6xyu.onrender.com',
-        changeOrigin: true,
+export default defineConfig(({ mode }) => {
+  const isDevelopment = mode === 'development';
 
-      },
-      // Add this new proxy rule for media uploads
-      '/uploads': {
-        target: 'https://strapi-backend-6xyu.onrender.com',
-        changeOrigin: true,
-        secure: false,
+  return {
+    plugins: [react()],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
       },
     },
-  },
-})
+    build: {
+      outDir: 'dist',
+      rollupOptions: {
+        // customize if needed
+      },
+    },
+    optimizeDeps: {
+      exclude: ['lucide-react'],
+    },
+    server: isDevelopment
+      ? {
+          proxy: {
+            '/api': {
+              target: 'http://localhost:8000', // or your dev backend
+              changeOrigin: true,
+            },
+            '/uploads': {
+              target: 'http://localhost:8000',
+              changeOrigin: true,
+              secure: false,
+            },
+          },
+        }
+      : undefined, // no server proxy in production
+  };
+});
