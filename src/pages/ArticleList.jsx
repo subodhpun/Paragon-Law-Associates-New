@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { BASE_URL } from '@/lib/api';
 
 const ArticleList = () => {
   const { slug } = useParams(); // dynamic route param: /practice-areas/:slug
@@ -11,8 +12,8 @@ const ArticleList = () => {
     const fetchArticles = async () => {
       try {
         const res = await fetch(
-          `/api/articles?filters[PracticeArea][slug][$eq]=${slug}&populate=PracticeArea`
-        );
+          `${BASE_URL}/api/articles?filters[PracticeArea][slug][$eq]=${slug}&populate=PracticeArea`
+        );        
         const json = await res.json();
         console.log("✅ RAW article data:", json);
         setArticles(json.data || []);

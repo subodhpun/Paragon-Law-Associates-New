@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Footer from './Footer';
+import { BASE_URL } from '@/lib/api';
 
 const ArticleDetail = () => {
   const { slug } = useParams();
@@ -9,8 +10,8 @@ const ArticleDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/articles?filters[slug][$eq]=${slug}&populate=*`)
-      .then((res) => res.json())
+    fetch(`${BASE_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*`)
+    .then((res) => res.json())
       .then((data) => {
         if (data.data && data.data.length > 0) {
           console.log("🔎 Full Article Object:", data.data[0]);
@@ -36,9 +37,12 @@ const ArticleDetail = () => {
 
   const { Title, Content, PracticeArea, Image } = article.attributes || article;
 
-  const imageUrl = Image
-    ? `/${(Image.url || Image.formats?.medium?.url || '').replace(/^\//, '')}`
-    : null;
+  // const imageUrl = Image
+  //   ? `/${(Image.url || Image.formats?.medium?.url || '').replace(/^\//, '')}`
+  //   : null;
+  const imagePath = Image?.url || Image?.formats?.medium?.url;
+  const imageUrl = imagePath ? `${BASE_URL}${imagePath}` : null;
+
 
   console.log("🖼️ Final Image URL:", imageUrl); // Debugging line
 

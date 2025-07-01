@@ -20,13 +20,13 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:1337',
+        target: 'https://strapi-backend-6xyu.onrender.com',
         changeOrigin: true,
-        secure: false,
+
       },
       // Add this new proxy rule for media uploads
       '/uploads': {
-        target: 'http://localhost:1337',
+        target: 'https://strapi-backend-6xyu.onrender.com',
         changeOrigin: true,
         secure: false,
       },
