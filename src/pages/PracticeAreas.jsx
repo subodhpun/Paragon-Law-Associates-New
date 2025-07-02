@@ -393,92 +393,92 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import {
-  Gavel,
-  Users,
-  Landmark,
-  Shield,
-  FileText,
-  BookOpen,
-  BadgeCheck,
-  Building,
-  Scale,
-  Banknote,
-  Scroll,
-  FileSignature,
-  Briefcase,
-  Handshake,
-  UserCheck,
-  ClipboardList,
-  FolderKanban,
-  Stamp,
-  UserPlus,
-  UserMinus,
-  Fingerprint,
-  Globe,
-  Lock,
-  Unlock,
-  Megaphone,
-  MessageSquare,
-  Camera,
-  Cpu,
-  MonitorSmartphone,
-  Quote,
-  KeyRound,
-  Home,
-  HelpCircle,
-  AlertTriangle,
-  ChevronRight,
-  TreeDeciduous,
-  Eye,
-  Search
-} from 'lucide-react';
+// import {
+//   Gavel,
+//   Users,
+//   Landmark,
+//   Shield,
+//   FileText,
+//   BookOpen,
+//   BadgeCheck,
+//   Building,
+//   Scale,
+//   Banknote,
+//   Scroll,
+//   FileSignature,
+//   Briefcase,
+//   Handshake,
+//   UserCheck,
+//   ClipboardList,
+//   FolderKanban,
+//   Stamp,
+//   UserPlus,
+//   UserMinus,
+//   Fingerprint,
+//   Globe,
+//   Lock,
+//   Unlock,
+//   Megaphone,
+//   MessageSquare,
+//   Camera,
+//   Cpu,
+//   MonitorSmartphone,
+//   Quote,
+//   KeyRound,
+//   Home,
+//   HelpCircle,
+//   AlertTriangle,
+//   ChevronRight,
+//   TreeDeciduous,
+//   Eye,
+//   Search
+// } from 'lucide-react';
 
 import SlideOnScroll from '@/components/ui/Slideonscroll';
 import Footer from './Footer';
 
 const PracticeAreas = () => {
-  // Static dummy data instead of fetch
-  const areas = [
-    { id: 1, slug: 'corporate-law', name: 'Corporate Law', icon: 'corporate-law' },
-    { id: 2, slug: 'family-law', name: 'Family Law', icon: 'family-law' },
-    { id: 3, slug: 'civil-litigation', name: 'Civil Litigation', icon: 'civil-litigation' },
-    { id: 4, slug: 'criminal-defense', name: 'Criminal Defense', icon: 'criminal-defense' },
-    { id: 5, slug: 'real-estate-law', name: 'Real Estate Law', icon: 'real-estate-law' },
-    { id: 6, slug: 'intellectual-property', name: 'Intellectual Property', icon: 'intellectual-property' },
-    { id: 7, slug: 'immigration-law', name: 'Immigration Law', icon: 'immigration-law' },
-    { id: 8, slug: 'employment-law', name: 'Employment Law', icon: 'employment-law' },
-    { id: 9, slug: 'tax-law', name: 'Tax Law', icon: 'tax-law' },
-  ];
+//   // Static dummy data instead of fetch
+//   const areas = [
+//     { id: 1, slug: 'corporate-law', name: 'Corporate Law', icon: 'corporate-law' },
+//     { id: 2, slug: 'family-law', name: 'Family Law', icon: 'family-law' },
+//     { id: 3, slug: 'civil-litigation', name: 'Civil Litigation', icon: 'civil-litigation' },
+//     { id: 4, slug: 'criminal-defense', name: 'Criminal Defense', icon: 'criminal-defense' },
+//     { id: 5, slug: 'real-estate-law', name: 'Real Estate Law', icon: 'real-estate-law' },
+//     { id: 6, slug: 'intellectual-property', name: 'Intellectual Property', icon: 'intellectual-property' },
+//     { id: 7, slug: 'immigration-law', name: 'Immigration Law', icon: 'immigration-law' },
+//     { id: 8, slug: 'employment-law', name: 'Employment Law', icon: 'employment-law' },
+//     { id: 9, slug: 'tax-law', name: 'Tax Law', icon: 'tax-law' },
+//   ];
 
   // No loading or fetch, so no loading state needed
 
   // Your getIcon function remains exactly the same
-  const getIcon = (icon) => {
-    switch (icon) {
-      case 'corporate-law':
-        return <Building className="w-8 h-8 text-[#FBBF24]" />;
-      case 'family-law':
-        return <Gavel className="w-8 h-8 text-[#FBBF24]" />;
-      case 'civil-litigation':
-        return <Scale className="w-8 h-8 text-[#FBBF24]" />;
-      case 'criminal-defense':
-        return <Shield className="w-8 h-8 text-[#FBBF24]" />;
-      case 'real-estate-law':
-        return <Home className="w-8 h-8 text-[#FBBF24]" />;
-      case 'intellectual-property':
-        return <BadgeCheck className="w-8 h-8 text-[#FBBF24]" />;
-      case 'immigration-law':
-        return <Globe className="w-8 h-8 text-[#FBBF24]" />;
-      case 'employment-law':
-        return <Briefcase className="w-8 h-8 text-[#FBBF24]" />;
-      case 'tax-law':
-        return <Banknote className="w-8 h-8 text-[#FBBF24]" />;
-      // ... other cases remain the same as before
-      default:
-        return <ChevronRight className="w-8 h-8 text-[#FBBF24]" />;
-    }
-  };
+  // const getIcon = (icon) => {
+  //   switch (icon) {
+  //     case 'corporate-law':
+  //       return <Building className="w-8 h-8 text-[#FBBF24]" />;
+  //     case 'family-law':
+  //       return <Gavel className="w-8 h-8 text-[#FBBF24]" />;
+  //     case 'civil-litigation':
+  //       return <Scale className="w-8 h-8 text-[#FBBF24]" />;
+  //     case 'criminal-defense':
+  //       return <Shield className="w-8 h-8 text-[#FBBF24]" />;
+  //     case 'real-estate-law':
+  //       return <Home className="w-8 h-8 text-[#FBBF24]" />;
+  //     case 'intellectual-property':
+  //       return <BadgeCheck className="w-8 h-8 text-[#FBBF24]" />;
+  //     case 'immigration-law':
+  //       return <Globe className="w-8 h-8 text-[#FBBF24]" />;
+  //     case 'employment-law':
+  //       return <Briefcase className="w-8 h-8 text-[#FBBF24]" />;
+  //     case 'tax-law':
+  //       return <Banknote className="w-8 h-8 text-[#FBBF24]" />;
+  //     // ... other cases remain the same as before
+  //     default:
+  //       return <ChevronRight className="w-8 h-8 text-[#FBBF24]" />;
+  //   }
+  // };
 
   return (
     <>
@@ -522,7 +522,7 @@ const PracticeAreas = () => {
         </SlideOnScroll>
 
         {/* Dynamic Practice Areas Grid */}
-        <SlideOnScroll direction="up" duration={1}>
+        {/* {/* <SlideOnScroll direction="up" duration={1}>
           <div className="mt-6 grid grid-cols-1 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 px-6 pb-16">
             {areas.length === 0 ? (
               <p className="text-center text-gray-400 col-span-full">No practice areas found.</p>
@@ -548,8 +548,8 @@ const PracticeAreas = () => {
                 );
               })
             )}
-          </div>
-        </SlideOnScroll>
+          </div> */}
+        {/* </SlideOnScroll> */}
       </div>
       <Footer />
     </>
