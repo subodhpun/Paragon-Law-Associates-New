@@ -25,11 +25,11 @@ export default defineConfig(({ mode }) => {
       ? {
           proxy: {
             '/api': {
-              target: 'http://localhost:8000', // or your dev backend
+              target: 'https://strapi-backend-6xyu.onrender.coms', // or your dev backend
               changeOrigin: true,
             },
             '/uploads': {
-              target: 'http://localhost:8000',
+              target: 'https://strapi-backend-6xyu.onrender.coms',
               changeOrigin: true,
               secure: false,
             },
