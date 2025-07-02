@@ -12,7 +12,7 @@ const ArticleList = () => {
     const fetchArticles = async () => {
       try {
         const res = await fetch(
-          `${BASE_URL}/api/articles?filters[PracticeArea][slug][$eq]=${slug}&populate=PracticeArea`
+          `https://strapi-backend-6xyu.onrender.com/api/articles?filters[PracticeArea][slug][$eq]=${slug}&populate=PracticeArea`
         );        
         const json = await res.json();
         console.log("✅ RAW article data:", json);
