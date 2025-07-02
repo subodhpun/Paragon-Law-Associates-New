@@ -4,21 +4,35 @@ import { Helmet } from "react-helmet";
 import { BASE_URL } from '@/lib/api';
 
 const ArticleList = () => {
-  const { slug } = useParams(); // dynamic route param: /practice-areas/:slug
+  const { slug } = useParams();
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const formattedSlug = slug?.replace(/-/g, " ").toUpperCase();
+
   useEffect(() => {
     const fetchArticles = async () => {
+      const url = `${BASE_URL}/api/articles?filters[PracticeArea][slug][$eq]=${slug}&populate=PracticeArea`;
+      console.log("🚀 Fetching articles for slug:", slug);
+      console.log("🌐 Using BASE_URL:", BASE_URL);
+      console.log("📥 Full request URL:", url);
+
       try {
-        const res = await fetch(
-          `https://strapi-backend-6xyu.onrender.com/api/articles?filters[PracticeArea][slug][$eq]=${slug}&populate=PracticeArea`
-        );        
+        const res = await fetch(url);
+
+        console.log("📡 Response status:", res.status);
+
+        if (!res.ok) {
+          console.error("❌ Network error:", res.statusText);
+          throw new Error(`Failed to fetch: ${res.status}`);
+        }
+
         const json = await res.json();
         console.log("✅ RAW article data:", json);
+
         setArticles(json.data || []);
       } catch (error) {
-        console.error("❌ Failed to fetch articles:", error);
+        console.error("❌ Failed to fetch articles:", error.message);
       } finally {
         setLoading(false);
       }
@@ -26,8 +40,6 @@ const ArticleList = () => {
 
     fetchArticles();
   }, [slug]);
-
-  const formattedSlug = slug?.replace(/-/g, " ").toUpperCase();
 
   return (
     <>
@@ -57,11 +69,9 @@ const ArticleList = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {articles.map((article) => {
-                const attr = article;
-
-                const title = attr?.Title;
-                const articleSlug = attr?.slug;
-                const excerpt = attr?.Excerpt;
+                const title = article?.Title;
+                const articleSlug = article?.slug;
+                const excerpt = article?.Excerpt;
 
                 if (!title || !articleSlug) {
                   console.warn("⚠️ Missing title or slug in article:", article);

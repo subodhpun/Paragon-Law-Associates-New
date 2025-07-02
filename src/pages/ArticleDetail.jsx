@@ -10,7 +10,7 @@ const ArticleDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://strapi-backend-6xyu.onrender.com/api/articles?filters[slug][$eq]=${slug}&populate=*`)
+    fetch(`${BASE_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*`)
     .then((res) => res.json())
       .then((data) => {
         if (data.data && data.data.length > 0) {
@@ -41,7 +41,7 @@ const ArticleDetail = () => {
   //   ? `/${(Image.url || Image.formats?.medium?.url || '').replace(/^\//, '')}`
   //   : null;
   const imagePath = Image?.url || Image?.formats?.medium?.url;
-  const imageUrl = imagePath ? `https://strapi-backend-6xyu.onrender.com${imagePath}` : null;
+  const imageUrl = imagePath ? `${BASE_URL}${imagePath}` : null;
 
 
   console.log("🖼️ Final Image URL:", imageUrl); // Debugging line
