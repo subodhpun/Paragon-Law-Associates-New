@@ -303,6 +303,7 @@ import { Star, ChevronRight, Phone, Mail, Award, BookOpen, Users, HelpCircle } f
 import { Card, CardContent } from '../components/ui/Card.jsx';
 import Footer from './Footer';
 import Gaurab from '../images/gaurab.jpg';
+import { BASE_URL } from '@/lib/api.js';
 
 // Photo Gallery Component
 const PhotoGallery = ({ photos }) => {
@@ -371,7 +372,7 @@ const Attorneys = () => {
   useEffect(() => {
     const fetchAttorneys = async () => {
       try {
-        const response = await fetch('/api/attorneys?populate=image');
+        const response = await fetch(`${BASE_URL}/api/attorneys?populate=image`);
         if (!response.ok) throw new Error('Failed to fetch attorneys');
 
         const data = await response.json();
