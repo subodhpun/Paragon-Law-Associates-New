@@ -220,14 +220,17 @@ import {
 
 import SlideOnScroll from '@/components/ui/Slideonscroll';
 import Footer from './Footer';
-
+import { BASE_URL
+  
+ } from '@/lib/api';
 const PracticeAreas = () => {
   const [areas, setAreas] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch practice areas data from the backend API
   useEffect(() => {
-    fetch('/api/practice-areas')
+    // fetch('/api/practice-areas')
+    fetch(`${BASE_URL}/api/practice-areas`)
       .then((res) => res.json())
       .then((data) => {
         console.log('RAW DATA:', JSON.stringify(data, null, 2));
