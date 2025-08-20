@@ -1,2 +1,5 @@
+/sitemap.xml
+  Content-Type: application/xml
+
 /*
   Content-Security-Policy: default-src 'self'; connect-src 'self' https://strapi-backend-6xyu.onrender.com http://localhost:8000 ws://localhost:5173; img-src 'self' data: https:;
