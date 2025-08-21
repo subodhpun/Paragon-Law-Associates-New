@@ -64,7 +64,7 @@
 //   return (
 //     <>
 //       <Helmet>
-//         <title>Practice Areas | Paragon Law Associates - Legal Services in Nepal</title>
+//         <title>Practice Areas | Khusi Law Group - Legal Services in Nepal</title>
 //         <meta
 //           name="description"
 //           content="Explore our comprehensive legal services including corporate law, family law, litigation, and more. Expert legal solutions tailored to your needs."
@@ -75,7 +75,7 @@
 //         />
 //         <link rel="canonical" href="https://lawparagon.com/practice-areas " />
 //         {/* Open Graph Tags */}
-//         <meta property="og:title" content="Our Practice Areas - Paragon Law Associates" />
+//         <meta property="og:title" content="Our Practice Areas - Khusi Law Group" />
 //         <meta
 //           property="og:description"
 //           content="Comprehensive legal services across multiple practice areas. Expert solutions for all your legal needs."
@@ -87,11 +87,11 @@
 //           {JSON.stringify({
 //             "@context": "https://schema.org ",
 //             "@type": "LegalService",
-//             "name": "Paragon Law Associates - Practice Areas",
+//             "name": "Khusi Law Group - Practice Areas",
 //             "description": "Comprehensive legal services across multiple practice areas",
 //             "provider": {
 //               "@type": "Organization",
-//               "name": "Paragon Law Associates",
+//               "name": "Khusi Law Group",
 //               "url": "https://lawparagon.com ",
 //             },
 //             "areaServed": {
@@ -314,7 +314,7 @@ const PracticeAreas = () => {
   return (
     <>
       <Helmet>
-        <title>Practice Areas | Paragon Law Associates - Legal Services in Nepal</title>
+        <title>Practice Areas | Khusi Law Group - Legal Services in Nepal</title>
         <meta
           name="description"
           content="Explore our comprehensive legal services including corporate law, family law, litigation, and more. Expert legal solutions tailored to your needs."
@@ -324,7 +324,7 @@ const PracticeAreas = () => {
           content="legal services Nepal, corporate law, family law, litigation, cyber law, employment law, tax law, real estate law"
         />
         <link rel="canonical" href="https://lawparagon.com/practice-areas " />
-        <meta property="og:title" content="Our Practice Areas - Paragon Law Associates" />
+        <meta property="og:title" content="Our Practice Areas - Khusi Law Group" />
         <meta
           property="og:description"
           content="Comprehensive legal services across multiple practice areas. Expert solutions for all your legal needs."

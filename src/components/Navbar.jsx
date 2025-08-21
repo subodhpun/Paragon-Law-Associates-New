@@ -88,7 +88,7 @@ const NAV_LINKS = [
 // Contact Information
 const CONTACT_INFO = {
   phone: '+977 1-4444444',
-  email: 'contact@paragonlaw.com',
+  email: 'contact@khusilawgroup.com',
   address: 'Putalisadak, Kathmandu',
   hours: 'Sun-Fri: 9:00 AM - 6:00 PM'
 };

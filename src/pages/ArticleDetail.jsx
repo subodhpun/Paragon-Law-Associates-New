@@ -49,7 +49,7 @@ const ArticleDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{Title} | Paragon Law Associates</title>
+        <title>{Title} | Khusi Law Group</title>
         <meta name="description" content={Title} />
       </Helmet>
 

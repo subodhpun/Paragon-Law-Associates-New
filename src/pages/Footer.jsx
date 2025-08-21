@@ -178,7 +178,7 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-gray-800">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center text-sm text-gray-400">
             <div>
-              <p>&copy; {new Date().getFullYear()} Paragon Law Associates. All rights reserved.</p>
+              <p>&copy; {new Date().getFullYear()} Khusi Law Group. All rights reserved.</p>
             </div>
             <div className="flex space-x-6 md:justify-end">
               <Link to="/privacy" className="hover:text-[#FBBF24] transition-colors">Privacy Policy</Link>

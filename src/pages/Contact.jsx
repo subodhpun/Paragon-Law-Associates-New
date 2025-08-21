@@ -147,10 +147,10 @@ const Contact = () => {
     <>
       {/* SEO Metadata */}
       <Helmet>
-        <title>Contact Us | Paragon Law Associates - Legal Consultation</title>
+        <title>Contact Us | Khusi Law Group - Legal Consultation</title>
         <meta
           name="description"
-          content="Get in touch with Paragon Law Associates for expert legal consultation. Schedule a consultation with our team today."
+          content="Get in touch with Khusi Law Group for expert legal consultation. Schedule a consultation with our team today."
         />
         <meta
           name="keywords"
@@ -158,7 +158,7 @@ const Contact = () => {
         />
         <link rel="canonical" href="https://lawparagon.com/contact" />
         {/* Open Graph Tags */}
-        <meta property="og:title" content="Contact Us - Paragon Law Associates" />
+        <meta property="og:title" content="Contact Us - Khusi Law Group" />
         <meta
           property="og:description"
           content="Reach out to our expert legal team for personalized legal solutions. We're here to help!"
@@ -170,11 +170,11 @@ const Contact = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "LegalService",
-            "name": "Paragon Law Associates - Contact Us",
+            "name": "Khusi Law Group - Contact Us",
             "description": "Contact us for expert legal consultation and personalized legal solutions.",
             "provider": {
               "@type": "Organization",
-              "name": "Paragon Law Associates",
+              "name": "Khusi Law Group",
               "url": "https://lawparagon.com"
             },
             "areaServed": {

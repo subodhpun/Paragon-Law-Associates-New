@@ -191,7 +191,7 @@ const AdminPanel = () => {
           padding: '16px',
           marginTop: 'auto'
         }}>
-          Paragon Law Associates ©2023
+          Khusi Law Group ©2023
         </Footer>
       </Layout>
     </Layout>

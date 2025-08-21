@@ -38,8 +38,8 @@ function News() {
   return (
     <div className="flex flex-col min-h-screen bg-[#0F172A] text-gray-300"> {/* Dark Navy Blue background */}
       <Helmet>
-        <title>News | Paragon Law Associates</title>
-        <meta name="description" content="Stay updated with the latest news and updates from Paragon Law Associates." />
+        <title>News | Khusi Law Group</title>
+        <meta name="description" content="Stay updated with the latest news and updates from Khusi Law Group." />
       </Helmet>
 
       {/* Header Section */}

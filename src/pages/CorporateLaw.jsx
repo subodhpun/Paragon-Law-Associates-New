@@ -6,7 +6,7 @@ const CorporateLaw = () => {
   return (
     <>
       <Helmet>
-        <title>Corporate Law | Paragon Law Associates</title>
+        <title>Corporate Law | Khusi Law Group</title>
         <meta
           name="description"
           content="Comprehensive legal solutions for businesses of all sizes, including mergers, acquisitions, and compliance."

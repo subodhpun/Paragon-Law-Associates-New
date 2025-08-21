@@ -44,7 +44,7 @@ const ArticleList = () => {
   return (
     <>
       <Helmet>
-        <title>{formattedSlug} Articles | Paragon Law Associates</title>
+        <title>{formattedSlug} Articles | Khusi Law Group</title>
         <meta
           name="description"
           content={`Articles related to ${formattedSlug}.`}

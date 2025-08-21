@@ -84,10 +84,10 @@
 //     <>
 //       {/* SEO Metadata */}
 //       <Helmet>
-//         <title>Home | Paragon Law Associates</title>
+//         <title>Home | Khusi Law Group</title>
 //         <meta
 //           name="description"
-//           content="Paragon Law Associates - Your trusted legal partner for all legal needs."
+//           content="Khusi Law Group - Your trusted legal partner for all legal needs."
 //         />
 //       </Helmet>
 
@@ -232,7 +232,7 @@
 //           <div className="max-w-7xl mx-auto px-6 lg:px-8">
 //             <h2 className="text-3xl font-bold text-center text-[#FBBF24]">Why Choose Us?</h2>
 //             <p className="mt-4 text-lg text-center text-gray-300">
-//               Your Trusted Legal Partner. At Paragon Law Associates, we prioritize your success with tailored solutions and unwavering dedication.
+//               Your Trusted Legal Partner. At Khusi Law Group, we prioritize your success with tailored solutions and unwavering dedication.
 //             </p>
 //             <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
 //               {[
@@ -345,7 +345,7 @@ const Home = () => {
   const testimonials = [
     {
       client_name: 'John Doe',
-      content: 'Paragon Law Associates provided excellent service and great results!',
+      content: 'Khusi Law Group provided excellent service and great results!',
       position: 'CEO',
       company: 'Example Corp',
       image_data: '', // leave blank or add base64 string if you want
@@ -372,10 +372,10 @@ const Home = () => {
     <>
       {/* SEO Metadata */}
       <Helmet>
-        <title>Home | Paragon Law Associates</title>
+        <title>Home | Khusi Law Group</title>
         <meta
           name="description"
-          content="Paragon Law Associates - Your trusted legal partner for all legal needs."
+          content="Khusi Law Group - Your trusted legal partner for all legal needs."
         />
       </Helmet>
 
@@ -523,7 +523,7 @@ const Home = () => {
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-center text-[#FBBF24]">Why Choose Us?</h2>
             <p className="mt-4 text-lg text-center text-gray-300">
-              Your Trusted Legal Partner. At Paragon Law Associates, we prioritize your success with tailored solutions and unwavering dedication.
+              Your Trusted Legal Partner. At Khusi Law Group, we prioritize your success with tailored solutions and unwavering dedication.
             </p>
             <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
               {[

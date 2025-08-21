@@ -8,32 +8,32 @@ const About = () => {
     <>
       {/* SEO Metadata */}
       <Helmet>
-        <title>Paragon Law Associates - About Us | Leading Legal Experts in Nepal</title>
+        <title>Khusi Law Group - About Us | Leading Legal Experts in Nepal</title>
         <meta 
           name="description" 
-          content="Discover Paragon Law Associates, a distinguished law firm with over 20 years of legal excellence. We provide exceptional legal services with integrity, innovation, and commitment." 
+          content="Discover Khusi Law Group, a distinguished law firm with over 20 years of legal excellence. We provide exceptional legal services with integrity, innovation, and commitment." 
         />
         <meta 
           name="keywords" 
-          content="Paragon Law Associates, legal services, law firm Nepal, experienced attorneys, legal excellence, corporate law, legal integrity, legal innovation" 
+          content="Khusi Law Group, legal services, law firm Nepal, experienced attorneys, legal excellence, corporate law, legal integrity, legal innovation" 
         />
         <link rel="canonical" href="https://lawparagon.com/about" />
         {/* Open Graph / Social Media Tags */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="About Paragon Law Associates - Legal Experts with 20+ Years of Experience" />
+        <meta property="og:title" content="About Khusi Law Group - Legal Experts with 20+ Years of Experience" />
         <meta 
           property="og:description" 
           content="Learn about our mission, values, and commitment to providing exceptional legal services in Nepal." 
         />
         <meta property="og:url" content="https://lawparagon.com/about" />
-        <meta property="og:site_name" content="Paragon Law Associates" />
+        <meta property="og:site_name" content="Khusi Law Group" />
         <meta 
           property="og:image" 
           content="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?auto=format&fit=crop&w=1200&h=630" 
         />
         {/* Twitter Card Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Paragon Law Associates - About Our Firm" />
+        <meta name="twitter:title" content="Khusi Law Group - About Our Firm" />
         <meta 
           name="twitter:description" 
           content="10+ years of legal excellence. Committed to integrity, innovation, and exceptional client service." 
@@ -47,7 +47,7 @@ const About = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "LawFirm",
-            "name": "Paragon Law Associates",
+            "name": "Khusi Law Group",
             "description": "Leading law firm in Nepal with over 20 years of experience providing exceptional legal services.",
             "url": "https://lawparagon.com",
             "logo": "https://lawparagon.com/images/logo.png",
@@ -87,7 +87,7 @@ const About = () => {
               </div>
               <h2 className="text-4xl font-serif mb-6 text-[#FBBF24]">A Legacy of Legal Excellence</h2> {/* Gold heading */}
               <p className="text-gray-400 mb-6">
-                Founded on principles of excellence and integrity, Paragon Law Associates
+                Founded on principles of excellence and integrity, Khusi Law Group
                 has been serving clients with distinction for over two decades. Our team
                 of experienced attorneys brings deep expertise and a commitment to
                 achieving the best possible outcomes for our clients.
@@ -151,7 +151,7 @@ const About = () => {
             Our Team's Culture
           </h2>
           <p className="text-gray-300 text-center mt-4 max-w-2xl mx-auto">
-            At Paragon Law Associates, we foster a collaborative, inclusive, and innovative work environment.
+            At Khusi Law Group, we foster a collaborative, inclusive, and innovative work environment.
           </p>
           <div className="mt-10 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-8">
             {[
