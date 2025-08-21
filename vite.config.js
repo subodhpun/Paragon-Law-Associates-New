@@ -1,14 +1,18 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { ViteSitemapPlugin } from 'vite-plugin-sitemap'
-
+import ViteSitemapPlugin from 'vite-plugin-sitemap';
 
 export default defineConfig(({ mode }) => {
   const isDevelopment = mode === 'development';
 
   return {
-    plugins: [react()],
+    plugins: [
+      react(),
+      ViteSitemapPlugin({
+        hostname: 'https://khusilawgroup.netlify.app',
+      }),
+    ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
@@ -27,18 +31,16 @@ export default defineConfig(({ mode }) => {
       ? {
           proxy: {
             '/api': {
-              target: 'https://strapi-backend-6xyu.onrender.com', // or your dev backend
-              // target: 'http://localhost:1337',
+              target: 'https://strapi-backend-6xyu.onrender.com',
               changeOrigin: true,
             },
             '/uploads': {
               target: 'https://strapi-backend-6xyu.onrender.com',
-              // target: 'http://localhost:1337',
               changeOrigin: true,
               secure: false,
             },
           },
         }
-      : undefined, // no server proxy in production
+      : undefined,
   };
 });
