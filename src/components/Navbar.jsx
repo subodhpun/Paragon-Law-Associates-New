@@ -216,7 +216,7 @@ const Navbar = () => {
             <NavLink to="/" className="flex items-center space-x-3">
               <Scale className="w-10 h-10 text-[#FBBF24]" />
               <div>
-                <span className="text-xl font-serif text-white block">Paragon Law</span>
+                <span className="text-xl font-serif text-white block">Khusi Law Group</span>
                 <span className="text-xs text-gray-400">Excellence in Legal Practice</span>
               </div>
             </NavLink>
