@@ -31,7 +31,8 @@
     "react-toastify": "^11.0.3",
     "shadcn-ui": "^0.9.4",
     "slick-carousel": "^1.8.1",
-    "swiper": "^11.2.2"
+    "swiper": "^11.2.2",
+    "vite-plugin-sitemap": "^0.8.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
