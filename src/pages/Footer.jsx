@@ -50,7 +50,7 @@ const Footer = () => {
             <div className="flex items-center space-x-3">
               <Scale className="w-10 h-10 text-[#FBBF24]" />
               <div>
-                <h2 className="text-2xl font-serif text-[#FBBF24]">Paragon Law</h2>
+                <h2 className="text-2xl font-serif text-[#FBBF24]">Khusi Law Group</h2>
                 <p className="text-sm text-gray-400">Excellence in Legal Practice</p>
               </div>
             </div>
@@ -139,11 +139,11 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3 text-sm">
                 <Phone className="w-5 h-5 text-[#FBBF24] flex-shrink-0" />
-                <p className="text-gray-400">+977 1-4444444</p>
+                <p className="text-gray-400">+977 9864423830</p>
               </div>
               <div className="flex items-center space-x-3 text-sm">
                 <Mail className="w-5 h-5 text-[#FBBF24] flex-shrink-0" />
-                <p className="text-gray-400">contact@paragonlaw.com</p>
+                <p className="text-gray-400">contact@khusilawgroup.com</p>
               </div>
               <div className="flex items-center space-x-3 text-sm">
                 <Clock className="w-5 h-5 text-[#FBBF24] flex-shrink-0" />

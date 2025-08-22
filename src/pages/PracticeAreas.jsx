@@ -73,14 +73,14 @@
 //           name="keywords"
 //           content="legal services Nepal, corporate law, family law, litigation, cyber law, employment law, tax law, real estate law"
 //         />
-//         <link rel="canonical" href="https://lawparagon.com/practice-areas " />
+//         <link rel="canonical" href="https://lawkhusi.com/practice-areas " />
 //         {/* Open Graph Tags */}
 //         <meta property="og:title" content="Our Practice Areas - Khusi Law Group" />
 //         <meta
 //           property="og:description"
 //           content="Comprehensive legal services across multiple practice areas. Expert solutions for all your legal needs."
 //         />
-//         <meta property="og:url" content="https://lawparagon.com/practice-areas " />
+//         <meta property="og:url" content="https://lawkhusi.com/practice-areas " />
 //         <meta property="og:type" content="website" />
 //         {/* Schema.org Markup */}
 //         <script type="application/ld+json">
@@ -92,7 +92,7 @@
 //             "provider": {
 //               "@type": "Organization",
 //               "name": "Khusi Law Group",
-//               "url": "https://lawparagon.com ",
+//               "url": "https://lawkhusi.com ",
 //             },
 //             "areaServed": {
 //               "@type": "Country",
@@ -323,13 +323,13 @@ const PracticeAreas = () => {
           name="keywords"
           content="legal services Nepal, corporate law, family law, litigation, cyber law, employment law, tax law, real estate law"
         />
-        <link rel="canonical" href="https://lawparagon.com/practice-areas " />
+        <link rel="canonical" href="https://lawkhusi.com/practice-areas " />
         <meta property="og:title" content="Our Practice Areas - Khusi Law Group" />
         <meta
           property="og:description"
           content="Comprehensive legal services across multiple practice areas. Expert solutions for all your legal needs."
         />
-        <meta property="og:url" content="https://lawparagon.com/practice-areas " />
+        <meta property="og:url" content="https://lawkhusi.com/practice-areas " />
         <meta property="og:type" content="website" />
       </Helmet>
 

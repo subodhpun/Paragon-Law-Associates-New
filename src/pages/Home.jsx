@@ -491,7 +491,7 @@ const Home = () => {
                             className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-700 ease-in-out transform group-hover:scale-105"
                           />
                           <div className="absolute inset-0 bg-[#0F172A] bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center">
-                            <p className="text-white text-lg font-semibold">Paragon Law</p>
+                            <p className="text-white text-lg font-semibold">Khusi Law Group</p>
                           </div>
                         </div>
                       )}
