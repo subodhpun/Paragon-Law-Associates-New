@@ -31,11 +31,11 @@ export default defineConfig(({ mode }) => {
       ? {
           proxy: {
             '/api': {
-              target: 'https://strapi-backend-6xyu.onrender.com',
+              target: 'https://supabasestrapi.onrender.com',
               changeOrigin: true,
             },
             '/uploads': {
-              target: 'https://strapi-backend-6xyu.onrender.com',
+              target: 'https://supabasestrapi.onrender.com',
               changeOrigin: true,
               secure: false,
             },
