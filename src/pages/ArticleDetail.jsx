@@ -143,27 +143,26 @@ function ArticleDetail() {
   // Function to process Strapi dynamic zone content
   function processStrapiContent(content) {
     if (!content || !Array.isArray(content)) return '';
-    
+  
     return content.map(block => {
-      if (block.type === 'text' && block.children) {
-        // Process text blocks with proper formatting
-        return block.children.map(child => {
-          if (child.type === 'paragraph') {
-            return `<p class="mb-4">${child.children.map(c => processInlineContent(c)).join('')}</p>`;
-          } else if (child.type === 'heading') {
-            const level = child.level || 2;
-            return `<h${level} class="text-2xl font-bold text-[#FBBF24] mt-6 mb-4">${child.children.map(c => processInlineContent(c)).join('')}</h${level}>`;
-          } else if (child.type === 'list') {
-            const tag = child.format === 'ordered' ? 'ol' : 'ul';
-            const listClass = tag === 'ol' ? 'list-decimal' : 'list-disc';
-            return `<${tag} class="${listClass} ml-6 mb-4 space-y-2">${child.children.map(listItem => 
-              `<li class="text-gray-300">${listItem.children.map(c => processInlineContent(c)).join('')}</li>`
-            ).join('')}</${tag}>`;
-          }
+      switch (block.type) {
+        case 'paragraph':
+          return `<p class="mb-4">${block.children.map(child => processInlineContent(child)).join('')}</p>`;
+        
+        case 'heading':
+          const level = block.level || 2;
+          return `<h${level} class="text-xl md:text-2xl font-bold text-[#FBBF24] mt-6 mb-4">${block.children.map(child => processInlineContent(child)).join('')}</h${level}>`;
+        
+        case 'list':
+          const tag = block.format === 'ordered' ? 'ol' : 'ul';
+          const listClass = tag === 'ol' ? 'list-decimal' : 'list-disc';
+          return `<${tag} class="${listClass} ml-6 mb-4 space-y-2">${block.children.map(listItem => 
+            `<li class="text-gray-300">${listItem.children.map(child => processInlineContent(child)).join('')}</li>`
+          ).join('')}</${tag}>`;
+        
+        default:
           return '';
-        }).join('');
       }
-      return '';
     }).join('');
   }
 
@@ -316,7 +315,7 @@ function ArticleDetail() {
         <meta name="description" content={article.excerpt} />
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8 py-16">
         <div className="mb-8">
           <Link to="/news" className="text-[#FBBF24] hover:text-[#D4AF37] underline flex items-center">
             <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -326,7 +325,7 @@ function ArticleDetail() {
           </Link>
         </div>
 
-        <article className="bg-[#1E293B] border-2 border-[#FBBF24] rounded-lg shadow-md overflow-hidden">
+        <article className="bg-[#1E293B] border-2 border-[#FBBF24] rounded-lg shadow-md overflow-hidden my-14">
           {article.image && (
             <div className="relative h-64 md:h-96 overflow-hidden">
               <img 

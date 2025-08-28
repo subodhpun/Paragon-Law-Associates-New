@@ -13,6 +13,7 @@
     "@ant-design/icons": "^5.6.0",
     "@headlessui/react": "^2.2.0",
     "@sanity/client": "^7.6.0",
+    "@supabase/supabase-js": "^2.56.0",
     "antd": "^5.23.3",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
