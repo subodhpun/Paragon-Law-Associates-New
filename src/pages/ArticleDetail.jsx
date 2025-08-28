@@ -2,97 +2,384 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Footer from './Footer';
-import { BASE_URL } from '@/lib/api';
 
-const ArticleDetail = () => {
-  const { slug } = useParams();
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://supabasestrapi.onrender.com';
+const API_TOKEN = import.meta.env.VITE_API_TOKEN;
+
+function ArticleDetail() {
+  const { id } = useParams();
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*`)
-    .then((res) => res.json())
-      .then((data) => {
-        if (data.data && data.data.length > 0) {
-          console.log("🔎 Full Article Object:", data.data[0]);
-          setArticle(data.data[0]);
-        } else {
-          console.error('No article found with the given slug.');
+    console.log('ArticleDetail mounted with ID:', id);
+    
+    const fetchArticle = async () => {
+      try {
+        if (!id) {
+          throw new Error('No article ID provided');
         }
-        setLoading(false);
-      })
-      .catch((error) => {
+
+        // Clean up the slug - handle case where hyphen might be missing
+        const normalizedSlug = id.includes('-') ? id : id.replace(/([A-Z])/g, '-$1').replace(/^-/, '');
+        
+        let articleData = null;
+        
+        // Method 1: Try direct slug-based search with proper URL encoding
+        try {
+          const encodedSlug = encodeURIComponent(normalizedSlug);
+          const response = await fetch(
+            `${BASE_URL}/api/articles?filters[Slug][$eq]=${encodedSlug}&populate=*`, 
+            {
+              headers: {
+                'Authorization': `Bearer ${API_TOKEN}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+
+          if (response.ok) {
+            const data = await response.json();
+            console.log('Filter response:', data);
+            
+            if (data.data && Array.isArray(data.data) && data.data.length > 0) {
+              articleData = data.data[0];
+            }
+          }
+        } catch (err) {
+          console.log('Slug-based fetch failed:', err.message);
+        }
+
+        // Method 2: Try case-insensitive search
+        if (!articleData) {
+          try {
+            const response = await fetch(
+              `${BASE_URL}/api/articles?filters[Slug][$containsi]=${encodeURIComponent(id)}&populate=*`, 
+              {
+                headers: {
+                  'Authorization': `Bearer ${API_TOKEN}`,
+                  'Content-Type': 'application/json',
+                },
+              }
+            );
+
+            if (response.ok) {
+              const data = await response.json();
+              if (data.data && Array.isArray(data.data) && data.data.length > 0) {
+                articleData = data.data.find(item => 
+                  item.Slug?.toLowerCase() === id.toLowerCase()
+                ) || data.data[0];
+              }
+            }
+          } catch (err) {
+            console.log('Case-insensitive fetch failed:', err.message);
+          }
+        }
+
+        // Method 3: Fetch all articles and find by slug
+        if (!articleData) {
+          try {
+            const response = await fetch(`${BASE_URL}/api/articles?populate=*`, {
+              headers: {
+                'Authorization': `Bearer ${API_TOKEN}`,
+                'Content-Type': 'application/json',
+              },
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              if (data.data && Array.isArray(data.data)) {
+                articleData = data.data.find(item => 
+                  item.Slug?.toLowerCase().replace(/-/g, '') === id.toLowerCase().replace(/-/g, '') ||
+                  item.Slug?.toLowerCase() === id.toLowerCase()
+                );
+              }
+            }
+          } catch (err) {
+            console.log('All articles fetch failed:', err.message);
+          }
+        }
+
+        if (!articleData) {
+          throw new Error('Article not found');
+        }
+
+        // Process the content from Strapi's dynamic zones
+        const processedContent = processStrapiContent(articleData.Content);
+        
+        const formattedArticle = {
+          id: articleData.id,
+          slug: articleData.Slug,
+          title: articleData.Title || "Untitled",
+          date: articleData.PublishedDate || articleData.publishedAt || "No date",
+          image: articleData.FeaturedIMage?.data?.attributes?.url 
+            ? `${BASE_URL}${articleData.FeaturedIMage.data.attributes.url.replace(/^\/+/, '/')}` 
+            : null,
+          category: articleData.Category || "General",
+          excerpt: articleData.Description || "",
+          author: articleData.Author || "Unknown",
+          content: processedContent
+        };
+
+        console.log('Formatted article:', formattedArticle);
+        setArticle(formattedArticle);
+        
+      } catch (error) {
         console.error('Error fetching article:', error);
+        setError(error.message);
+      } finally {
         setLoading(false);
-      });
-  }, [slug]);
+      }
+    };
+
+    fetchArticle();
+
+    return () => {
+      console.log('ArticleDetail unmounting');
+    };
+  }, [id]);
+
+  // Function to process Strapi dynamic zone content
+  function processStrapiContent(content) {
+    if (!content || !Array.isArray(content)) return '';
+    
+    return content.map(block => {
+      if (block.type === 'text' && block.children) {
+        // Process text blocks with proper formatting
+        return block.children.map(child => {
+          if (child.type === 'paragraph') {
+            return `<p class="mb-4">${child.children.map(c => processInlineContent(c)).join('')}</p>`;
+          } else if (child.type === 'heading') {
+            const level = child.level || 2;
+            return `<h${level} class="text-2xl font-bold text-[#FBBF24] mt-6 mb-4">${child.children.map(c => processInlineContent(c)).join('')}</h${level}>`;
+          } else if (child.type === 'list') {
+            const tag = child.format === 'ordered' ? 'ol' : 'ul';
+            const listClass = tag === 'ol' ? 'list-decimal' : 'list-disc';
+            return `<${tag} class="${listClass} ml-6 mb-4 space-y-2">${child.children.map(listItem => 
+              `<li class="text-gray-300">${listItem.children.map(c => processInlineContent(c)).join('')}</li>`
+            ).join('')}</${tag}>`;
+          }
+          return '';
+        }).join('');
+      }
+      return '';
+    }).join('');
+  }
+
+  // Process inline content (bold, italic, links, etc.)
+  function processInlineContent(node) {
+    if (typeof node.text === 'string') {
+      let text = node.text;
+      
+      // Apply formatting based on node properties
+      if (node.bold) {
+        text = `<strong class="font-bold">${text}</strong>`;
+      }
+      if (node.italic) {
+        text = `<em class="italic">${text}</em>`;
+      }
+      if (node.underline) {
+        text = `<u class="underline">${text}</u>`;
+      }
+      if (node.strikethrough) {
+        text = `<s class="line-through">${text}</s>`;
+      }
+      
+      return text;
+    }
+    return '';
+  }
 
   if (loading) {
-    return <p className="text-center py-10 text-gray-400">Loading article...</p>;
+    return (
+      <div className="flex flex-col min-h-screen bg-[#0F172A] text-gray-300">
+        <Helmet>
+          <title>Loading Article | Khusi Law Group</title>
+        </Helmet>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="mb-8">
+            <Link to="/news" className="text-[#FBBF24] hover:text-[#D4AF37] underline flex items-center">
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to News
+            </Link>
+          </div>
+          <div className="bg-[#1E293B] border-2 border-[#FBBF24] rounded-lg shadow-md p-8">
+            <div className="animate-pulse">
+              <div className="h-8 bg-gray-700 rounded mb-4 w-3/4"></div>
+              <div className="h-4 bg-gray-700 rounded mb-2 w-1/2"></div>
+              <div className="h-64 bg-gray-700 rounded mb-6"></div>
+              <div className="space-y-2">
+                <div className="h-4 bg-gray-700 rounded"></div>
+                <div className="h-4 bg-gray-700 rounded"></div>
+                <div className="h-4 bg-gray-700 rounded w-5/6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col min-h-screen bg-[#0F172A] text-gray-300">
+        <Helmet>
+          <title>Error | Khusi Law Group</title>
+        </Helmet>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="mb-8">
+            <Link to="/news" className="text-[#FBBF24] hover:text-[#D4AF37] underline flex items-center">
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to News
+            </Link>
+          </div>
+          <div className="bg-red-900 border border-red-500 rounded-lg p-6">
+            <h3 className="text-red-300 font-bold mb-2">Error Loading Article</h3>
+            <p className="text-red-200 mb-4">{error}</p>
+            <div className="space-y-2">
+              <p className="text-sm text-red-200">Troubleshooting tips:</p>
+              <ul className="text-sm text-red-200 list-disc list-inside space-y-1">
+                <li>Check if the article URL matches your Strapi slug exactly</li>
+                <li>Verify the slug in Strapi is "{id}" or "Family-Law"</li>
+                <li>Ensure your API token has proper read permissions</li>
+                <li>Test the API directly: {`${BASE_URL}/api/articles?populate=*`}</li>
+              </ul>
+            </div>
+            <div className="mt-4 space-x-2">
+              <button 
+                onClick={() => window.location.reload()}
+                className="bg-[#FBBF24] text-[#0F172A] px-4 py-2 rounded hover:bg-[#D4AF37] transition-colors"
+              >
+                Retry
+              </button>
+              <Link
+                to="/news"
+                className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-500 transition-colors"
+              >
+                Browse All Articles
+              </Link>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
   }
 
   if (!article) {
-    return <p className="text-center py-10 text-red-500">Article not found.</p>;
-  }
-
-  const { Title, Content, PracticeArea, Image } = article.attributes || article;
-
-  // const imageUrl = Image
-  //   ? `/${(Image.url || Image.formats?.medium?.url || '').replace(/^\//, '')}`
-  //   : null;
-  const imagePath = Image?.url || Image?.formats?.medium?.url;
-  const imageUrl = imagePath ? `${BASE_URL}${imagePath}` : null;
-
-
-  console.log("🖼️ Final Image URL:", imageUrl); // Debugging line
-
-  return (
-    <>
-      <Helmet>
-        <title>{Title} | Khusi Law Group</title>
-        <meta name="description" content={Title} />
-      </Helmet>
-
-      <div className="bg-[#0F172A] text-gray-300 py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <h1 className="text-4xl font-serif text-[#FBBF24] text-justify mb-8 mt-10 justify-center flex">{Title}</h1>
-
-          {/* Show image via proxy */}
-          {imageUrl && (
-            <img
-              src={imageUrl}
-              alt={Title}
-              className="mb-8 w-full max-h-[500px] object-cover rounded-lg"
-            />
-          )}
-
-          <div className="space-y-4 text-justify">
-            {Array.isArray(Content) ? (
-              Content.map((block, idx) => (
-                <p key={idx} className="text-lg leading-relaxed">
-                  {block.children?.map((child) => child.text).join(' ') || ''}
-                </p>
-              ))
-            ) : (
-              <p>{Content}</p>
-            )}
+    return (
+      <div className="flex flex-col min-h-screen bg-[#0F172A] text-gray-300">
+        <Helmet>
+          <title>Article Not Found | Khusi Law Group</title>
+        </Helmet>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="mb-8">
+            <Link to="/news" className="text-[#FBBF24] hover:text-[#D4AF37] underline flex items-center">
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to News
+            </Link>
           </div>
-
-          <div className="mt-12">
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-bold text-gray-400 mb-4">Article Not Found</h2>
+            <p className="text-gray-500 mb-6">The article you're looking for doesn't exist or has been removed.</p>
+            <div className="text-sm text-gray-400 mb-4">
+              Looking for: <code className="bg-gray-800 px-2 py-1 rounded">{id}</code>
+            </div>
             <Link
-              to={`../practice-areas/${PracticeArea?.data?.attributes?.slug || ''}`}
-              className="text-[#FBBF24] hover:underline"
+              to="/news"
+              className="bg-[#FBBF24] text-[#0F172A] px-6 py-3 rounded hover:bg-[#D4AF37] transition-colors inline-flex items-center"
             >
-              ← Back to Practice Area
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+              Browse All Articles
             </Link>
           </div>
         </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col min-h-screen bg-[#0F172A] text-gray-300">
+      <Helmet>
+        <title>{article.title} | Khusi Law Group</title>
+        <meta name="description" content={article.excerpt} />
+      </Helmet>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="mb-8">
+          <Link to="/news" className="text-[#FBBF24] hover:text-[#D4AF37] underline flex items-center">
+            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to News
+          </Link>
+        </div>
+
+        <article className="bg-[#1E293B] border-2 border-[#FBBF24] rounded-lg shadow-md overflow-hidden">
+          {article.image && (
+            <div className="relative h-64 md:h-96 overflow-hidden">
+              <img 
+                src={article.image} 
+                alt={article.title} 
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+          )}
+          
+          <div className="p-6 md:p-8">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <span className="text-sm font-medium text-[#FBBF24] bg-[#FBBF24]/10 px-3 py-1 rounded-full">
+                {article.category}
+              </span>
+              <span className="text-sm text-gray-400">
+                {new Date(article.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </span>
+              {article.author && (
+                <span className="text-sm text-gray-400">
+                  by {article.author}
+                </span>
+              )}
+            </div>
+            
+            <h1 className="text-3xl md:text-4xl font-bold text-[#FBBF24] mb-6 leading-tight">
+              {article.title}
+            </h1>
+            
+            {article.excerpt && (
+              <p className="text-gray-300 text-lg mb-8 italic border-l-4 border-[#FBBF24]/50 pl-4">
+                {article.excerpt}
+              </p>
+            )}
+            
+            <div className="prose prose-lg prose-invert max-w-none">
+              <div 
+                dangerouslySetInnerHTML={{ __html: article.content }} 
+                className="content-style space-y-4"
+              />
+            </div>
+          </div>
+        </article>
       </div>
 
       <Footer />
-    </>
+    </div>
   );
-};
+}
 
 export default ArticleDetail;

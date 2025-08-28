@@ -16,7 +16,10 @@ import ArticleList from './pages/ArticleList.jsx'
 function App() {
   return (
     <LoadingProvider>
-      <Router>
+      <Router future={{ 
+        v7_startTransition: true,
+        v7_relativeSplatPath: true 
+      }}>
         <ScrollToTop/>
         <div className="min-h-screen bg-slate-900">
           <Navbar />
@@ -27,9 +30,9 @@ function App() {
             <Route path="/news" element={<News />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/admin" element={<AdminPanel />} />  {/* Admin Panel */}
+            <Route path="/admin" element={<AdminPanel />} />
             <Route path="/practice-areas/:slug" element={<ArticleList/>} />
-            <Route path="/articles/:slug" element={<ArticleDetail />} />
+            <Route path="/news/:id" element={<ArticleDetail />} />
           </Routes>
         </div>
       </Router>
