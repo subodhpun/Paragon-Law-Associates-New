@@ -2,4 +2,4 @@
   Content-Type: application/xml
 
 /*
-  Content-Security-Policy: default-src 'self'; connect-src 'self' https://strapi-backend-6xyu.onrender.com http://localhost:8000 ws://localhost:5173; img-src 'self' data: https:;
+  Content-Security-Policy: default-src 'self'; connect-src 'self' https://strapi-backend-6xyu.onrender.com http://localhost:8000 ws://localhost:5173 https://kbgbfxxngaecdjoounhr.supabase.co https://yfvuxylytaogopltosdb.supabase.co https://supabasestrapi.onrender.com https://loving-surprise-be41d6117d.strapiapp.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; frame-src 'self'; object-src 'none';
