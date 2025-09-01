@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Footer from './Footer';
+import supabase from '../../src/supabaseClient';
+
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://supabasestrapi.onrender.com';
 const API_TOKEN = import.meta.env.VITE_API_TOKEN;
@@ -12,133 +14,74 @@ function ArticleDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    console.log('ArticleDetail mounted with ID:', id);
-    
-    const fetchArticle = async () => {
-      try {
-        if (!id) {
-          throw new Error('No article ID provided');
-        }
 
-        // Clean up the slug - handle case where hyphen might be missing
-        const normalizedSlug = id.includes('-') ? id : id.replace(/([A-Z])/g, '-$1').replace(/^-/, '');
-        
-        let articleData = null;
-        
-        // Method 1: Try direct slug-based search with proper URL encoding
-        try {
-          const encodedSlug = encodeURIComponent(normalizedSlug);
-          const response = await fetch(
-            `${BASE_URL}/api/articles?filters[Slug][$eq]=${encodedSlug}&populate=*`, 
-            {
-              headers: {
-                'Authorization': `Bearer ${API_TOKEN}`,
-                'Content-Type': 'application/json',
-              },
-            }
-          );
-
-          if (response.ok) {
-            const data = await response.json();
-            console.log('Filter response:', data);
-            
-            if (data.data && Array.isArray(data.data) && data.data.length > 0) {
-              articleData = data.data[0];
-            }
-          }
-        } catch (err) {
-          console.log('Slug-based fetch failed:', err.message);
-        }
-
-        // Method 2: Try case-insensitive search
-        if (!articleData) {
-          try {
-            const response = await fetch(
-              `${BASE_URL}/api/articles?filters[Slug][$containsi]=${encodeURIComponent(id)}&populate=*`, 
-              {
-                headers: {
-                  'Authorization': `Bearer ${API_TOKEN}`,
-                  'Content-Type': 'application/json',
-                },
-              }
-            );
-
-            if (response.ok) {
-              const data = await response.json();
-              if (data.data && Array.isArray(data.data) && data.data.length > 0) {
-                articleData = data.data.find(item => 
-                  item.Slug?.toLowerCase() === id.toLowerCase()
-                ) || data.data[0];
-              }
-            }
-          } catch (err) {
-            console.log('Case-insensitive fetch failed:', err.message);
-          }
-        }
-
-        // Method 3: Fetch all articles and find by slug
-        if (!articleData) {
-          try {
-            const response = await fetch(`${BASE_URL}/api/articles?populate=*`, {
-              headers: {
-                'Authorization': `Bearer ${API_TOKEN}`,
-                'Content-Type': 'application/json',
-              },
-            });
-
-            if (response.ok) {
-              const data = await response.json();
-              if (data.data && Array.isArray(data.data)) {
-                articleData = data.data.find(item => 
-                  item.Slug?.toLowerCase().replace(/-/g, '') === id.toLowerCase().replace(/-/g, '') ||
-                  item.Slug?.toLowerCase() === id.toLowerCase()
-                );
-              }
-            }
-          } catch (err) {
-            console.log('All articles fetch failed:', err.message);
-          }
-        }
-
-        if (!articleData) {
-          throw new Error('Article not found');
-        }
-
-        // Process the content from Strapi's dynamic zones
-        const processedContent = processStrapiContent(articleData.Content);
-        
-        const formattedArticle = {
-          id: articleData.id,
-          slug: articleData.Slug,
-          title: articleData.Title || "Untitled",
-          date: articleData.PublishedDate || articleData.publishedAt || "No date",
-          image: articleData.FeaturedIMage?.data?.attributes?.url 
-            ? `${BASE_URL}${articleData.FeaturedIMage.data.attributes.url.replace(/^\/+/, '/')}` 
-            : null,
-          category: articleData.Category || "General",
-          excerpt: articleData.Description || "",
-          author: articleData.Author || "Unknown",
-          content: processedContent
-        };
-
-        console.log('Formatted article:', formattedArticle);
-        setArticle(formattedArticle);
-        
-      } catch (error) {
-        console.error('Error fetching article:', error);
-        setError(error.message);
-      } finally {
-        setLoading(false);
+useEffect(() => {
+  console.log('ArticleDetail mounted with ID:', id);
+  const fetchArticle = async () => {
+    try {
+      if (!id) {
+        throw new Error('No article ID provided');
       }
-    };
-
-    fetchArticle();
-
-    return () => {
-      console.log('ArticleDetail unmounting');
-    };
+  
+      // Fetch article directly from Supabase by id
+      const { data, error } = await supabase
+        .from('articles')
+        .select('*')
+        .eq('id', id)
+        .single();
+  
+      if (error) throw error;
+      if (!data) throw new Error('Article not found');
+  
+      // Process Supabase content array into HTML
+      const processedContent = processSupabaseContent(data.content);
+  
+      const formattedArticle = {
+        id: data.id,
+        title: data.title || 'Untitled',
+        date: data.created || 'No date',
+        image: data.image_url || null,
+        excerpt: data.description || '',
+        author: data.author || 'Unknown',
+        content: processedContent
+      };
+  
+      console.log('Article fetched from Supabase:', formattedArticle);
+      setArticle(formattedArticle);
+  
+    } catch (err) {
+      console.error('Error fetching article:', err.message);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  // Helper function to convert Supabase content array to HTML
+  function processSupabaseContent(content) {
+    if (!Array.isArray(content)) return '';
+  
+    return content.map(block => {
+      switch (block.type) {
+        case 'paragraph':
+          return `<p class="mb-4 text-gray-300">${block.children.map(child => child.text).join('')}</p>`;
+        case 'heading':
+          const level = block.level || 2;
+          return `<h${level} class="text-xl md:text-2xl font-bold text-[#FBBF24] mt-6 mb-4">${block.children.map(child => child.text).join('')}</h${level}>`;
+        case 'list':
+          const tag = block.format === 'ordered' ? 'ol' : 'ul';
+          const listClass = tag === 'ol' ? 'list-decimal' : 'list-disc';
+          return `<${tag} class="${listClass} ml-6 mb-4 space-y-2">${block.children.map(item => `<li class="text-gray-300">${item.children.map(c => c.text).join('')}</li>`).join('')}</${tag}>`;
+        default:
+          return '';
+      }
+    }).join('');
+  }
+  
+  fetchArticle();
   }, [id]);
+  
+
 
   // Function to process Strapi dynamic zone content
   function processStrapiContent(content) {

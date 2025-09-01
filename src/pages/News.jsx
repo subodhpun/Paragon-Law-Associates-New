@@ -15,36 +15,46 @@ function News() {
   useEffect(() => {
     const fetchFromSupabase = async () => {
       try {
-        const { data, error: supaError } = await supabase
+        console.log('Starting Supabase fetch for articles...');
+    
+        const { data: articlesData, error: articlesError } = await supabase
           .from('articles')
           .select('*')
-          .order('cached_at', { ascending: false });
-
-        if (supaError) throw supaError;
-
-        if (data && data.length > 0) {
-          const formattedArticles = data.map(item => ({
-            id: item.id,
-            slug: item.slug || item.id,
-            title: item.title || 'Untitled',
-            date: item.published_at || item.cached_at || 'No date',
-            image: item.featured_image_url || null,
-            category: item.category || 'General',
-            excerpt: item.data?.excerpt || item.excerpt || '',
-            author: item.data?.author || 'Unknown',
-            content: item.data?.content || ''
-          }));
-          console.log('Articles fetched from Supabase:', formattedArticles);
-          setArticles(formattedArticles);
-          return true;
-        }
-        return false;
+          .order('created', { ascending: false });
+    
+        if (articlesError) throw articlesError;
+    
+        const seenDocuments = new Map(); // document_id -> article
+    
+        articlesData.forEach(article => {
+          if (!seenDocuments.has(article.document_id)) {
+            seenDocuments.set(article.document_id, {
+              id: article.id,
+              slug: article.id, // or your slug if available
+              title: article.title || 'Untitled',
+              date: article.created || 'No date',
+              image: article.image_url || null,
+              category: article.category || 'General',
+              author: article.author || 'Unknown',
+              excerpt: article.description || '',
+              content: article.content || ''
+            });
+          }
+        });
+    
+        const formattedArticles = Array.from(seenDocuments.values());
+    
+        console.log('Articles fetched from Supabase (deduplicated by document_id):', formattedArticles);
+        setArticles(formattedArticles);
+        return true;
+    
       } catch (err) {
-        console.warn('Supabase fetch failed:', err);
+        console.error('Supabase fetch failed:', err);
         return false;
       }
     };
-
+    
+    
     const fetchFromStrapi = async () => {
       try {
         console.log('Fetching articles from Strapi fallback:', `${BASE_URL}/api/articles?populate=*`);
