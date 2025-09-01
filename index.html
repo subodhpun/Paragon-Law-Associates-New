@@ -272,13 +272,16 @@
     <meta http-equiv="Content-Security-Policy" 
     content="
       default-src 'self';
-      connect-src 'self' https://supabasestrapi.onrender.com https://yfvuxylytaogopltosdb.supabase.co https://kbgbfxxngaecdjoounhr.supabase.co http://localhost:8000 ws://localhost:5173;
+      connect-src 'self' https://supabasestrapi.onrender.com https://yfvuxylytaogopltosdb.supabase.co https://kbgbfxxngaecdjoounhr.supabase.co https://loving-surprise-be41d6117d.strapiapp.com;
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       font-src 'self' https://fonts.gstatic.com;
       img-src 'self' data: https:;
       script-src 'self' 'unsafe-inline';
-    " 
+      frame-src 'self';
+      object-src 'none';
+    "
   />
+  
   
   
     <!-- Your existing script -->
